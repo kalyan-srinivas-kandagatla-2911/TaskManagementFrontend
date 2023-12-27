@@ -1,19 +1,21 @@
 // src/App.js
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 const RegPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [signedIn, setSignedIn] = useState(false);
+  const [username, setUsername] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [email, setEmail] = useState<string>();
+  const [team, setTeam] = useState<string>()
+  const [signedIn, setSignedIn] = useState<boolean>(false);
 
   const handleLogin = () => {
-    // In a real-world application, you would perform authentication here.
-    // For simplicity, we'll just check if the username and password are not empty.
-    if (username && password) {
-      setSignedIn(true);
-    } else {
-      alert('Please enter both username and password.');
+    if(!email || !password || !team || !username){
+      setSignedIn(false)
+      return;
+    } else{
+
     }
+
   };
 
   return (
@@ -31,7 +33,7 @@ const RegPage = () => {
             <input
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {setUsername(e.target.value)}}
             />
           </label>
           <br />
@@ -39,8 +41,8 @@ const RegPage = () => {
             Team:
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={team}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {setTeam(e.target.value)}}
             />
           </label>
           <br />
@@ -48,26 +50,17 @@ const RegPage = () => {
             Email
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {setEmail(e.target.value)}}
             />
           </label>
           <br />
           <label>
             Password:
             <input
-              type="password"
+              type="text"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <br />
-          <label>
-            Retype Password:
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)}}
             />
           </label>
           <br/>
@@ -80,7 +73,7 @@ const RegPage = () => {
 
 function Register() {
   return (
-    <div className="App">
+    <div className="Register">
       <RegPage />
     </div>
   );
