@@ -4,7 +4,7 @@ import "./App.css";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/reducers";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./screens/home/screen/home";
+import Home from "./screens/home/pages/home";
 import Login from "./screens/home/auth/login/login";
 import Register from "./screens/home/auth/register/register";
 import Task from "./screens/home/admin/addtask";
