@@ -1,0 +1,29 @@
+
+[
+    {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "teamName": "Team A",
+      "password": "password123"
+      
+    },
+    {
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "teamName": "Team B",
+      "password": "secret@456"
+    },
+    {
+      "name": "Bob Johnson",
+      "email": "bob.johnson@example.com",
+      "teamName": "Team C",
+      "password": "securePass789"
+    },
+    {
+      "name": "Alice Williams",
+      "email": "alice.williams@example.com",
+      "teamName": "Team A",
+      "password": "p@ssw0rd"
+    }
+  ]
+  

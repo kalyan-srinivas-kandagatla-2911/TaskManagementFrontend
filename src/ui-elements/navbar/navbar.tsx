@@ -1,6 +1,6 @@
 // src/App.js
 import React from 'react';
-// import './App.css';
+import './navbar.css';
 import { Route, Link,Routes } from 'react-router-dom';
 // import LoginPage from './Login';
 // import HomePage from './HomePage';
