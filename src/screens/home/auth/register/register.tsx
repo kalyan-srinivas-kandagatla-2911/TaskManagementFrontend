@@ -1,5 +1,6 @@
 // src/App.js
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useSignUpUserMutation } from '../../../../generated/graphql';
 
 const RegPage = () => {
   const [username, setUsername] = useState<string>();
@@ -7,17 +8,40 @@ const RegPage = () => {
   const [email, setEmail] = useState<string>();
   const [team, setTeam] = useState<string>()
   const [signedIn, setSignedIn] = useState<boolean>(false);
+  const [signUpUser, { data, loading, error }] = useSignUpUserMutation();
 
-  const handleLogin = () => {
+  useEffect(() => {
+    if(data){
+      sessionStorage.setItem('user', JSON.stringify(signUpUser))
+    }
+  },[])
+  const  handleLogin = async () => {
     if(!email || !password || !team || !username){
       setSignedIn(false)
-      return;
-    } else{
-
+      return
     }
 
-  };
+    try {
+      await signUpUser({
+        variables:{
+          data:{
+            username,
+            email,
+            password:password,
+            team
+          }
+        }
+      })
+      
+    } catch (error) {
+      console.log(error)
+    }
 
+
+
+
+
+  };
   return (
     <div>
       {signedIn ? (
@@ -80,3 +104,4 @@ function Register() {
 }
 
 export default Register;
+
