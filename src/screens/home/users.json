@@ -3,26 +3,26 @@
     {
       "name": "John Doe",
       "email": "john.doe@example.com",
-      "teamName": "Team A",
+      "teamName": "Team_One",
       "password": "password123"
       
     },
     {
       "name": "Jane Smith",
       "email": "jane.smith@example.com",
-      "teamName": "Team B",
+      "teamName": "Team_Two",
       "password": "secret@456"
     },
     {
       "name": "Bob Johnson",
       "email": "bob.johnson@example.com",
-      "teamName": "Team C",
+      "teamName": "Team_One",
       "password": "securePass789"
     },
     {
       "name": "Alice Williams",
       "email": "alice.williams@example.com",
-      "teamName": "Team A",
+      "teamName": "Team_Two",
       "password": "p@ssw0rd"
     }
   ]
