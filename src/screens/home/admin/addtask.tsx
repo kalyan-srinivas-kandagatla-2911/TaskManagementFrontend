@@ -1,20 +1,31 @@
-// src/App.js
 import React, { useState } from 'react';
-// import './App.css';
+import users from '../users.json'; // Update the path accordingly
 
 const TaskPage = () => {
   const [taskName, setTaskName] = useState('');
-  const [assignedUsers, setAssignedUsers] = useState<{ name: string; email: string; }[]>([]);
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
+  const [selectedUser, setSelectedUser] = useState('');
+  const [assignedUsers, setAssignedUsers] = useState<string[]>([]);
+  const [searchText, setSearchText] = useState('');
+
+  const handleUserChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedUser(e.target.value);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(searchText.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchText.toLowerCase()) ||
+    user.teamName.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   const handleAddUser = () => {
-    if (userName && userEmail) {
-      setAssignedUsers([...assignedUsers, { name: userName, email: userEmail }]);
-      setUserName('');
-      setUserEmail('');
+    if (selectedUser) {
+      setAssignedUsers([...assignedUsers, selectedUser]);
     } else {
-      alert('Please enter both name and email for the user.');
+      alert('Please select a user.');
     }
   };
 
@@ -47,21 +58,23 @@ const TaskPage = () => {
         <div>
           <input
             type="text"
-            placeholder="Name"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
+            placeholder="Search users..."
+            value={searchText}
+            onChange={handleSearchChange}
           />
-          <input
-            type="email"
-            placeholder="Email"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
-          />
+          <select onChange={handleUserChange} value={selectedUser}>
+            <option value="">Select a user</option>
+            {filteredUsers.map((user) => (
+              <option key={user.email} value={user.email}>
+                {user.name} - {user.teamName}
+              </option>
+            ))}
+          </select>
           <button onClick={handleAddUser}>Add User</button>
         </div>
         <ul>
           {assignedUsers.map((user, index) => (
-            <li key={index}>{`${user.name} (${user.email})`}</li>
+            <li key={index}>{user}</li>
           ))}
         </ul>
       </label>
