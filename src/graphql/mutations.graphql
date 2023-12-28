@@ -9,3 +9,7 @@ mutation SignInUser($data: SignInInput!) {
     username
   }
 }
+
+mutation logOutUser {
+  logOutUser
+}

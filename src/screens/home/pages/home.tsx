@@ -2,14 +2,18 @@ import React from 'react';
 import './home.scss'
 import Login from '../auth/login/login';
 import Nav from '../../../ui-elements/navbar/navbar';
+import { useLogOutUserMutation } from '../../../generated/graphql';
+import client from '../../../apolloClient';
 type HomeProps =
  {
     
 };
 
 const Home:React.FC<HomeProps> = () => {
-    const logOut = () => {
-        sessionStorage.clear()
+    const [logOutUserMutation, { data, loading, error }] = useLogOutUserMutation();
+
+    const logOut = async () => {
+        await client.resetStore()
     }
     return (
         <div className="home">

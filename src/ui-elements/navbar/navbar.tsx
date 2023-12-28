@@ -13,12 +13,6 @@ const Navigation = () => (
   <nav>
     <ul>
       <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/login">Login</Link>
-      </li>
-      <li>
         <Link to="/task">Tasks</Link>
       </li>
     </ul>
@@ -29,11 +23,6 @@ function App() {
   return (
     <div className="App">
       <Navigation />
-      {/* <Routes>
-      <Route path="/login" Component={Login} />
-      <Route path="/task" Component={Task} />
-      <Route  path="/" Component={Home} />
-      </Routes> */}
     </div>
   );
 }
