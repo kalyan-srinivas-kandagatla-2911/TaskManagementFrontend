@@ -8,7 +8,18 @@ type HomeProps =
 };
 
 const Home:React.FC<HomeProps> = () => {
-    
-    return <div><Nav/></div>
+    const logOut = () => {
+        sessionStorage.clear()
+    }
+    return (
+        <div className="home">
+            <div className="nav">
+                <Nav />
+            </div>
+            <div className="container">
+                <button onClick={logOut}>Logout</button>
+            </div>
+        </div>
+    )
 }
 export default Home;
