@@ -23,7 +23,6 @@ function App() {
               <Route path="/login" element={<Login/>}/>
               <Route path="/register" element={<Register/>}/>
               <Route path="/task" element={<Task/>}/>
-              <Route path="/nav" element={<Nav/>}/>
             </Routes>
           </BrowserRouter>
       </div>

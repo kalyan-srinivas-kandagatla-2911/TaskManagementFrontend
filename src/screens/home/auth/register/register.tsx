@@ -1,6 +1,7 @@
 // src/App.js
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSignUpUserMutation } from '../../../../generated/graphql';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
     const [username, setUsername] = useState<string>();
@@ -9,10 +10,12 @@ function Register() {
   const [team, setTeam] = useState<string>()
   const [signedIn, setSignedIn] = useState<boolean>(false);
   const [signUpUserMutation, { data, loading, error }] = useSignUpUserMutation();
+  const naviagte = useNavigate()
 
   useEffect(() => {
     if(data){
       sessionStorage.setItem('user', JSON.stringify(signUpUserMutation))
+      naviagte("/")
     }
   },[])
   const  handleLogin = async () => {

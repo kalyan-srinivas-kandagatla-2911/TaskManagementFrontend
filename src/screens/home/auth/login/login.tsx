@@ -1,6 +1,3 @@
-// import React from 'react'
-
-// src/App.js
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useSignInUserMutation } from '../../../../generated/graphql';
 import { useNavigate } from 'react-router-dom';
@@ -17,8 +14,10 @@ const LoginPage = () => {
   useEffect(() => {
     if(data){
       sessionStorage.setItem("user",JSON.stringify(data.signInUser))
+      refetch()
+      navigate("/")
     }
-  })
+  },[data])
   const handleLogin = async () => {
     if(!email || !password || !team){
       setLoggedIn(false)
@@ -64,7 +63,7 @@ const LoginPage = () => {
           </label>
           <br />
           <label>
-            Email
+            Team
             <input
               type="text"
               value={team}
