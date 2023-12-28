@@ -1,26 +1,27 @@
 // src/App.js
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useSignUpUserMutation } from '../../../../generated/graphql';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../../utils/authProvider';
 
 function Register() {
     const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [team, setTeam] = useState<string>()
-  const [signedIn, setSignedIn] = useState<boolean>(false);
   const [signUpUserMutation, { data, loading, error }] = useSignUpUserMutation();
   const naviagte = useNavigate()
+  const { refetch } = useContext(AuthContext);
 
   useEffect(() => {
     if(data){
       sessionStorage.setItem('user', JSON.stringify(signUpUserMutation))
+      refetch()
       naviagte("/")
     }
-  },[])
+  },[data])
   const  handleLogin = async () => {
     if(!email || !password || !team || !username){
-      setSignedIn(false)
       return
     }
 
@@ -39,18 +40,9 @@ function Register() {
     } catch (error) {
       console.log(error)
     }
-
-
-
   };
   return (
     <div className="Register">
-      {signedIn ? (
-        <div>
-          <h2>Welcome, {username}!</h2>
-          <p>You are now logged in.</p>
-        </div>
-      ) : (
         <div>
           <h2>Register</h2>
           <label>
@@ -91,12 +83,14 @@ function Register() {
           <br/>
           <button onClick={handleLogin}>Sign Up</button>
         </div>
-      )}
     </div>
   );
 }
 
 export default Register;
+
+
+
 
 
 
