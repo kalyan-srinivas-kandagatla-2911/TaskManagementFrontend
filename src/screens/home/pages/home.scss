@@ -1,49 +1,179 @@
-/* src/App.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Open%20Sans:800');
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #001F3F
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.container .App .Link link {
+  background-color: #a09f9f;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px #001F3F;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+h2 {
+  color: #FFD700;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+  color: #FFD700
+}
+
+input {
+  width: calc(100% - 24px); /* Adjust as needed */
+  padding: 12px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #FFD700;
+  border-radius: 20px;
+}
+
+button {
+  background-color: #FFFFFF;
+  color: #001F3F;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #FFFFFF; /* Darken the color on hover */
+}
+
+// button::before {
+//   content: '';
+//   height: 110%;
+//   width: 105%;
+//   position: absolute;
+//   border-radius: calc(var(--font) * 0.8);
+//   background-color: transparent;
+// }
+ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+li {
+  margin: 10px;
+  padding: 20px;
+  border: px solid #ccc;
+  border-radius: 8px;
+  // background-color: #fff; /* Set your desired background color */
+  text-align: center;
+}
+
+@keyframes borders {
+  0%, 100% {
+    border-width: calc(var(--font) * 0.2) calc(var(--font) * 0.1) calc(var(--font) * 0.02) calc(var(--font) * 0.02);
   }
-  
-  .container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+  25% {
+    border-width: calc(var(--font) * 0.1) calc(var(--font) * 0.02) calc(var(--font) * 0.02) calc(var(--font) * 0.2);
   }
-  
-  h2 {
-    color: #333;
+  50% {
+    border-width: calc(var(--font) * 0.02) calc(var(--font) * 0.02) calc(var(--font) * 0.2) calc(var(--font) * 0.1);
   }
-  
-  label {
-    display: block;
-    margin: 10px 0;
+  75% {
+    border-width: calc(var(--font) * 0.02) calc(var(--font) * 0.2) calc(var(--font) * 0.1) calc(var(--font) * 0.02);
   }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 4px;
-    box-sizing: border-box;
-  }
-  
-  button {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
+}
+
+button:hover::before {
+  border: solid rgb(210, 255, 227, 0.8);
+  padding: calc(var(--font) * 0.08);
+  box-shadow: inset 0 0 calc(var(--font) * 0.2) calc(var(--font) * 0.2) rgb(186, 201, 255, 0.3);
+  filter: blur(calc(var(--font) * 0.06));
+  animation: borders infinite 2s linear;
+  opacity: 0.5;
+}
+
+span {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  display: flex;
+  border-radius: calc(var(--font) * 0.6);
+  z-index: -1;
+}
+
+span::after {
+  content: '';
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: linear-gradient(90deg, rgb(248, 249, 255, 0), rgb(206, 216, 255, 0.6), rgb(248, 249, 255, 0));
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+button:hover > span::after {
+  opacity: 1;
+  transform: translateX(100%);
+  transition: all ease 1s;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+.horizontal-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+}
+
+/* Style each li item in the list */
+.horizontal-list-item {
+  display: block;
+  margin-right: 10px; /* Adjust as needed to create space between items */
+}
+
+/* Optional: Style content within the li elements */
+.horizontal-list-item a {
+  text-decoration: none;
+  color: #FFD700;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+/* Optional: Style content within the li elements */
+.horizontal-list-item span {
+  padding: 8px;
+  display: inline-block;
+}

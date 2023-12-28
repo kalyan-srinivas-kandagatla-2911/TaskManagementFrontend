@@ -3,7 +3,8 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useSignUpUserMutation } from '../../../../generated/graphql';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../utils/authProvider';
-
+// import "./register.css"
+import "../../pages/home.scss"
 function Register() {
     const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
@@ -21,8 +22,14 @@ function Register() {
     }
   },[data])
   const  handleLogin = async () => {
-    if(!email || !password || !team || !username){
-      return
+    if(!email || !password || !team || !username ){
+      alert("Enter all the fields");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
     }
 
     try {
@@ -42,6 +49,7 @@ function Register() {
     }
   };
   return (
+    
     <div className="Register">
         <div>
           <h2>Register</h2>
@@ -84,6 +92,7 @@ function Register() {
           <button onClick={handleLogin}>Sign Up</button>
         </div>
     </div>
+  
   );
 }
 

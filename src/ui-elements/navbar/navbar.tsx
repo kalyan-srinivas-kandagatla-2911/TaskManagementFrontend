@@ -11,8 +11,14 @@ import Home from '../../screens/home/pages/home';
 
 const Navigation = () => (
   <nav>
-    <ul>
-      <li>
+    <ul className='horizontal-list'>
+    <li className='horizontal-list-item'>
+        <Link to="/login">Login</Link>
+      </li>
+    <li className='horizontal-list-item'>
+        <Link to="/register">Sign-Up</Link>
+      </li>
+      <li className='horizontal-list-item'>
         <Link to="/task">Task</Link>
       </li>
     </ul>

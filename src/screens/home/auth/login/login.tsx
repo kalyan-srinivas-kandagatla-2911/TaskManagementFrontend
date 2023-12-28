@@ -19,7 +19,15 @@ const LoginPage = () => {
     }
   },[data])
   const handleLogin = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (email &&!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
     if(!email || !password || !team){
+      
+      alert("Enter all the details")
       setLoggedIn(false)
     }else {
       try {
@@ -43,12 +51,6 @@ const LoginPage = () => {
       {loading ? (
         <div>
           <h1>Loading</h1>
-        </div>
-      ) :
-      loggedIn ? (
-        <div>
-          <h2>Welcome, {email}!</h2>
-          <p>You are now logged in.</p>
         </div>
       ) : (
         <div>
