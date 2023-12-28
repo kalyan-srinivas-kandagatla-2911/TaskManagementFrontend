@@ -1,28 +1,54 @@
 // import React from 'react'
 
 // src/App.js
-import React, { useState } from 'react';
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { useSignInUserMutation } from '../../../../generated/graphql';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../../utils/authProvider';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const handleLogin = () => {
-    // In a real-world application, you would perform authentication here.
-    // For simplicity, we'll just check if the username and password are not empty.
-    if (username && password) {
-      setLoggedIn(true);
-    } else {
-      alert('Please enter both username and password.');
+  const [email, setEmail] = useState<string>();
+  const [password, setPassword] = useState<string>();
+  const [team, setTeam] = useState<string>()
+  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const [signInUserMutation, { data, loading, error }] = useSignInUserMutation();
+  const { refetch } = useContext(AuthContext);
+  useEffect(() => {
+    if(data){
+      sessionStorage.setItem("user",JSON.stringify(data.signInUser))
     }
-  };
+  })
+  const handleLogin = async () => {
+    if(!email || !password || !team){
+      setLoggedIn(false)
+    }else {
+      try {
+        await signInUserMutation({
+          variables:{
+            data:{
+              email,
+              password:password,
+              team
+            }
+          }
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 
   return (
     <div>
-      {loggedIn ? (
+      {loading ? (
         <div>
-          <h2>Welcome, {username}!</h2>
+          <h1>Loading</h1>
+        </div>
+      ) :
+      loggedIn ? (
+        <div>
+          <h2>Welcome, {email}!</h2>
           <p>You are now logged in.</p>
         </div>
       ) : (
@@ -32,17 +58,17 @@ const LoginPage = () => {
             Email
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {setEmail(e.target.value)}}
             />
           </label>
           <br />
           <label>
-            Team
+            Email
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={team}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {setTeam(e.target.value)}}
             />
           </label>
           <br />
@@ -51,7 +77,7 @@ const LoginPage = () => {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {setPassword(e.target.value)}}
             />
           </label>
           <br />

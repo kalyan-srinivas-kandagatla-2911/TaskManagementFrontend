@@ -62,9 +62,9 @@ export type SignInInput = {
 
 export type SignUpInput = {
   email: Scalars['String']['input'];
-  username: Scalars['String']['input'];
   password: Scalars['String']['input'];
   team: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
 export type Task = {
@@ -80,10 +80,10 @@ export type User = {
   __typename?: 'User';
   email: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
   offId: Scalars['String']['output'];
   role: Role;
   team: Scalars['String']['output'];
+  username: Scalars['String']['output'];
 };
 
 export type CreateTaskInput = {
@@ -99,6 +99,18 @@ export type SignUpUserMutationVariables = Exact<{
 
 
 export type SignUpUserMutation = { __typename?: 'Mutation', signUpUser: { __typename?: 'User', username: string } };
+
+export type SignInUserMutationVariables = Exact<{
+  data: SignInInput;
+}>;
+
+
+export type SignInUserMutation = { __typename?: 'Mutation', signInUser: { __typename?: 'User', username: string } };
+
+export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'User', username: string, team: string, email: string, id: string, offId: string, role: Role } };
 
 
 export const SignUpUserDocument = gql`
@@ -134,3 +146,80 @@ export function useSignUpUserMutation(baseOptions?: Apollo.MutationHookOptions<S
 export type SignUpUserMutationHookResult = ReturnType<typeof useSignUpUserMutation>;
 export type SignUpUserMutationResult = Apollo.MutationResult<SignUpUserMutation>;
 export type SignUpUserMutationOptions = Apollo.BaseMutationOptions<SignUpUserMutation, SignUpUserMutationVariables>;
+export const SignInUserDocument = gql`
+    mutation SignInUser($data: SignInInput!) {
+  signInUser(data: $data) {
+    username
+  }
+}
+    `;
+export type SignInUserMutationFn = Apollo.MutationFunction<SignInUserMutation, SignInUserMutationVariables>;
+
+/**
+ * __useSignInUserMutation__
+ *
+ * To run a mutation, you first call `useSignInUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignInUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signInUserMutation, { data, loading, error }] = useSignInUserMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useSignInUserMutation(baseOptions?: Apollo.MutationHookOptions<SignInUserMutation, SignInUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignInUserMutation, SignInUserMutationVariables>(SignInUserDocument, options);
+      }
+export type SignInUserMutationHookResult = ReturnType<typeof useSignInUserMutation>;
+export type SignInUserMutationResult = Apollo.MutationResult<SignInUserMutation>;
+export type SignInUserMutationOptions = Apollo.BaseMutationOptions<SignInUserMutation, SignInUserMutationVariables>;
+export const GetMeDocument = gql`
+    query getMe {
+  getMe {
+    username
+    team
+    email
+    id
+    offId
+    role
+  }
+}
+    `;
+
+/**
+ * __useGetMeQuery__
+ *
+ * To run a query within a React component, call `useGetMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetMeQuery(baseOptions?: Apollo.QueryHookOptions<GetMeQuery, GetMeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetMeQuery, GetMeQueryVariables>(GetMeDocument, options);
+      }
+export function useGetMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMeQuery, GetMeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetMeQuery, GetMeQueryVariables>(GetMeDocument, options);
+        }
+export function useGetMeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetMeQuery, GetMeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetMeQuery, GetMeQueryVariables>(GetMeDocument, options);
+        }
+export type GetMeQueryHookResult = ReturnType<typeof useGetMeQuery>;
+export type GetMeLazyQueryHookResult = ReturnType<typeof useGetMeLazyQuery>;
+export type GetMeSuspenseQueryHookResult = ReturnType<typeof useGetMeSuspenseQuery>;
+export type GetMeQueryResult = Apollo.QueryResult<GetMeQuery, GetMeQueryVariables>;

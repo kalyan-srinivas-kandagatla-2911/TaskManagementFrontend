@@ -6,6 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import WindowSizeListner from "./hooks/windowSizeListner";
+import { ApolloProvider } from "@apollo/client";
+import client from "./apolloClient";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -13,8 +15,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <WindowSizeListner/>
-      <App />
+      <ApolloProvider client={client}>
+        <WindowSizeListner/>
+        <App />
+      </ApolloProvider>
     </React.StrictMode>
   </Provider>
 );

@@ -1,5 +1,11 @@
 mutation SignUpUser($data: SignUpInput!) {
   signUpUser(data: $data) {
-    name
+    username
+  }
+}
+
+mutation SignInUser($data: SignInInput!) {
+  signInUser(data: $data) {
+    username
   }
 }

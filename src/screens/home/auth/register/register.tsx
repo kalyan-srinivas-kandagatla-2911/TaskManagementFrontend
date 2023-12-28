@@ -2,17 +2,17 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSignUpUserMutation } from '../../../../generated/graphql';
 
-const RegPage = () => {
-  const [username, setUsername] = useState<string>();
+function Register() {
+    const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [team, setTeam] = useState<string>()
   const [signedIn, setSignedIn] = useState<boolean>(false);
-  const [signUpUser, { data, loading, error }] = useSignUpUserMutation();
+  const [signUpUserMutation, { data, loading, error }] = useSignUpUserMutation();
 
   useEffect(() => {
     if(data){
-      sessionStorage.setItem('user', JSON.stringify(signUpUser))
+      sessionStorage.setItem('user', JSON.stringify(signUpUserMutation))
     }
   },[])
   const  handleLogin = async () => {
@@ -22,7 +22,7 @@ const RegPage = () => {
     }
 
     try {
-      await signUpUser({
+      await signUpUserMutation({
         variables:{
           data:{
             username,
@@ -39,11 +39,9 @@ const RegPage = () => {
 
 
 
-
-
   };
   return (
-    <div>
+    <div className="Register">
       {signedIn ? (
         <div>
           <h2>Welcome, {username}!</h2>
@@ -93,15 +91,9 @@ const RegPage = () => {
       )}
     </div>
   );
-};
-
-function Register() {
-  return (
-    <div className="Register">
-      <RegPage />
-    </div>
-  );
 }
 
 export default Register;
+
+
 
