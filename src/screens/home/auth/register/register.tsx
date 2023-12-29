@@ -1,48 +1,31 @@
 // src/App.js
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
-import { useSignUpUserMutation } from '../../../../generated/graphql';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../../utils/authProvider';
+import React, { ChangeEvent, useState } from 'react';
 
-function Register() {
-    const [username, setUsername] = useState<string>();
+const RegPage = () => {
+  const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [team, setTeam] = useState<string>()
-  const [signUpUserMutation, { data, loading, error }] = useSignUpUserMutation();
-  const naviagte = useNavigate()
-  const { refetch } = useContext(AuthContext);
+  const [signedIn, setSignedIn] = useState<boolean>(false);
 
-  useEffect(() => {
-    if(data){
-      sessionStorage.setItem('user', JSON.stringify(signUpUserMutation))
-      refetch()
-      naviagte("/")
-    }
-  },[data])
-  const  handleLogin = async () => {
+  const handleLogin = () => {
     if(!email || !password || !team || !username){
-      return
+      setSignedIn(false)
+      return;
+    } else{
+
     }
 
-    try {
-      await signUpUserMutation({
-        variables:{
-          data:{
-            username,
-            email,
-            password:password,
-            team
-          }
-        }
-      })
-      
-    } catch (error) {
-      console.log(error)
-    }
   };
+
   return (
-    <div className="Register">
+    <div>
+      {signedIn ? (
+        <div>
+          <h2>Welcome, {username}!</h2>
+          <p>You are now logged in.</p>
+        </div>
+      ) : (
         <div>
           <h2>Register</h2>
           <label>
@@ -83,14 +66,17 @@ function Register() {
           <br/>
           <button onClick={handleLogin}>Sign Up</button>
         </div>
+      )}
+    </div>
+  );
+};
+
+function Register() {
+  return (
+    <div className="Register">
+      <RegPage />
     </div>
   );
 }
 
 export default Register;
-
-
-
-
-
-

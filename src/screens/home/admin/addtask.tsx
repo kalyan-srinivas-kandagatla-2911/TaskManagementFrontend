@@ -3,9 +3,11 @@ import users from '../users.json'; // Update the path accordingly
 
 const TaskPage = () => {
   const [taskName, setTaskName] = useState('');
+  const [assignedUsers, setAssignedUsers] = useState<{ email: string; name: string; teamName: string }[]>([]);
   const [selectedUser, setSelectedUser] = useState('');
-  const [assignedUsers, setAssignedUsers] = useState<string[]>([]);
   const [searchText, setSearchText] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
+  const [description, setDescription]=useState('');
 
   const handleUserChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedUser(e.target.value);
@@ -23,21 +25,34 @@ const TaskPage = () => {
 
   const handleAddUser = () => {
     if (selectedUser) {
-      setAssignedUsers([...assignedUsers, selectedUser]);
+      const userToAdd = users.find((user) => user.email === selectedUser);
+      if (userToAdd) {
+        // Check if the user is not already added
+        if (!assignedUsers.find((user) => user.email === selectedUser)) {
+          setAssignedUsers([...assignedUsers, userToAdd]);
+        } else {
+          alert('User is already added.');
+        }
+      }
     } else {
       alert('Please select a user.');
     }
   };
 
+  const handleRemoveUser = (email: string) => {
+    setAssignedUsers(assignedUsers.filter((user) => user.email !== email));
+  };
+
   const handlePublish = () => {
-    if (taskName && assignedUsers.length > 0) {
+    if (taskName && assignedUsers.length > 0 && selectedDate) {
       // In a real-world scenario, you would likely send this data to a backend
       // for processing and storage.
       console.log('Task Name:', taskName);
       console.log('Assigned Users:', assignedUsers);
+      console.log('Selected Date:', selectedDate);
       alert('Task published successfully!');
     } else {
-      alert('Please enter task name and assign at least one user.');
+      alert('Please enter task name, assign at least one user, and select a date.');
     }
   };
 
@@ -53,9 +68,11 @@ const TaskPage = () => {
         />
       </label>
       <br />
+      
+      <br />
       <label>
         Assign to Users:
-        <div>
+        <div style={{ display: 'flex' }}>
           <input
             type="text"
             placeholder="Search users..."
@@ -73,18 +90,31 @@ const TaskPage = () => {
           <button onClick={handleAddUser}>Add User</button>
         </div>
         <ul>
-          {assignedUsers.map((user, index) => (
-            <li key={index}>{user}</li>
+          {assignedUsers.map((user) => (
+            <li key={user.email}>
+              {user.name} ({user.teamName}){' '}
+              <button onClick={() => handleRemoveUser(user.email)}>Remove</button>
+            </li>
           ))}
         </ul>
       </label>
+      <label>
+        Task's deadline:
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+        />
+      </label>
+      <label>Task's Description<input type="text"value={description}onChange={(e)=>setDescription(e.target.value)}></input></label>
+
       <br />
       <button onClick={handlePublish}>Publish Task</button>
     </div>
   );
 };
 
-function Task() {
+function AddTask() {
   return (
     <div className="App">
       <TaskPage />
@@ -92,4 +122,4 @@ function Task() {
   );
 }
 
-export default Task;
+export default AddTask;

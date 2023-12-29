@@ -7,8 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./screens/home/pages/home";
 import Login from "./screens/home/auth/login/login";
 import Register from "./screens/home/auth/register/register";
-import Task from "./screens/home/admin/addtask";
+import AddTask from "./screens/home/admin/addtask";
 import Nav from "./ui-elements/navbar/navbar";
+import ViewTasks from "./screens/home/admin/task";
 
 function App() {
 
@@ -22,7 +23,8 @@ function App() {
               <Route path="/" element={<Home/>}/>
               <Route path="/login" element={<Login/>}/>
               <Route path="/register" element={<Register/>}/>
-              <Route path="/task" element={<Task/>}/>
+              <Route path="/addtask" element={<AddTask/>}/>
+              <Route path="/viewtask" element={<ViewTasks/>}/>
             </Routes>
           </BrowserRouter>
       </div>

@@ -12,8 +12,17 @@ import Home from '../../screens/home/pages/home';
 const Navigation = () => (
   <nav>
     <ul>
+    <li>
+        <Link to="/login">Login</Link>
+      </li>
       <li>
-        <Link to="/task">Task</Link>
+        <Link to="/register">Register</Link>
+      </li>
+      <li>
+        <Link to="/addtask"> Add Task</Link>
+      </li>
+      <li>
+        <Link to="/viewtask"> View Task</Link>
       </li>
     </ul>
   </nav>

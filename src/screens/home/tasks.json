@@ -1,0 +1,54 @@
+[
+    {
+      "assignedUsers": [
+        {
+          "email": "user1@example.com",
+          "name": "User One",
+          "teamName": "Team A"
+        },
+        {
+          "email": "user2@example.com",
+          "name": "User Two",
+          "teamName": "Team B"
+        }
+      ],
+      "taskName": "Task 1",
+      "deadline": "2023-12-31",
+      "adminName": "Admin1"
+    },
+    {
+      "assignedUsers": [
+        {
+          "email": "user3@example.com",
+          "name": "User Three",
+          "teamName": "Team C"
+        },
+        {
+          "email": "user4@example.com",
+          "name": "User Four",
+          "teamName": "Team D"
+        }
+      ],
+      "taskName": "Task 2",
+      "deadline": "2023-11-15",
+      "adminName": "Admin2"
+    },
+    {
+      "assignedUsers": [
+        {
+          "email": "user5@example.com",
+          "name": "User Five",
+          "teamName": "Team E"
+        },
+        {
+          "email": "user6@example.com",
+          "name": "User Six",
+          "teamName": "Team F"
+        }
+      ],
+      "taskName": "Task 3",
+      "deadline": "2023-10-01",
+      "adminName": "Admin3"
+    }
+  ]
+  
