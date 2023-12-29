@@ -13,7 +13,7 @@ const Home:React.FC<HomeProps> = () => {
     const [logOutUserMutation, { data, loading, error }] = useLogOutUserMutation();
 
     const logOut = async () => {
-        await client.resetStore()
+        sessionStorage.clear()
     }
     return (
         <div className="home">
@@ -21,7 +21,10 @@ const Home:React.FC<HomeProps> = () => {
                 <Nav />
             </div>
             <div className="container">
-                <button onClick={logOut}>Logout</button>
+                <button onClick={async () =>{
+                    await logOutUserMutation();
+                    window.location.reload()
+                }}>Logout</button>
             </div>
         </div>
     )

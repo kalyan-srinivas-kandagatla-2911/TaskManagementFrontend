@@ -3,14 +3,15 @@ import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useSignUpUserMutation } from '../../../../generated/graphql';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../../utils/authProvider';
-// import "./register.css"
-import "../../pages/home.scss"
+
 function Register() {
     const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [team, setTeam] = useState<string>()
-  const [signedIn, setSignedIn] = useState<boolean>(false);
+  const [signUpUserMutation, { data, loading, error }] = useSignUpUserMutation();
+  const naviagte = useNavigate()
+  const { refetch } = useContext(AuthContext);
 
   useEffect(() => {
     if(data){
@@ -20,20 +21,27 @@ function Register() {
     }
   },[data])
   const  handleLogin = async () => {
-    if(!email || !password || !team || !username ){
-      alert("Enter all the fields");
-      return;
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert('Please enter a valid email address.');
-      return;
+    if(!email || !password || !team || !username){
+      return
     }
 
+    try {
+      await signUpUserMutation({
+        variables:{
+          data:{
+            username,
+            email,
+            password:password,
+            team
+          }
+        }
+      })
+      
+    } catch (error) {
+      console.log(error)
+    }
   };
-
   return (
-    
     <div className="Register">
         <div>
           <h2>Register</h2>
@@ -75,18 +83,14 @@ function Register() {
           <br/>
           <button onClick={handleLogin}>Sign Up</button>
         </div>
-      )}
     </div>
-  );
-};
-
-function Register() {
-  return (
-    <div className="Register">
-      <RegPage />
-    </div>
-  
   );
 }
 
 export default Register;
+
+
+
+
+
+
