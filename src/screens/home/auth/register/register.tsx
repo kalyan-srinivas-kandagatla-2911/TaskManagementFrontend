@@ -10,9 +10,7 @@ function Register() {
   const [password, setPassword] = useState<string>();
   const [email, setEmail] = useState<string>();
   const [team, setTeam] = useState<string>()
-  const [signUpUserMutation, { data, loading, error }] = useSignUpUserMutation();
-  const naviagte = useNavigate()
-  const { refetch } = useContext(AuthContext);
+  const [signedIn, setSignedIn] = useState<boolean>(false);
 
   useEffect(() => {
     if(data){
@@ -32,22 +30,8 @@ function Register() {
       return;
     }
 
-    try {
-      await signUpUserMutation({
-        variables:{
-          data:{
-            username,
-            email,
-            password:password,
-            team
-          }
-        }
-      })
-      
-    } catch (error) {
-      console.log(error)
-    }
   };
+
   return (
     
     <div className="Register">
@@ -91,15 +75,18 @@ function Register() {
           <br/>
           <button onClick={handleLogin}>Sign Up</button>
         </div>
+      )}
+    </div>
+  );
+};
+
+function Register() {
+  return (
+    <div className="Register">
+      <RegPage />
     </div>
   
   );
 }
 
 export default Register;
-
-
-
-
-
-
