@@ -21,7 +21,19 @@ function Register() {
     }
   },[data])
   const  handleLogin = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email &&!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
     if(!email || !password || !team || !username){
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+      if (email &&!emailRegex.test(email)) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+      alert("enter all the details");
       return
     }
 

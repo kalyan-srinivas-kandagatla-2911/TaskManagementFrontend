@@ -33,6 +33,8 @@ const ViewTasks = () => {
           <h3>Task Details:</h3>
           <p>Task Name: {selectedTask.taskName}</p>
           <p>Admin Name: {selectedTask.adminName}</p>
+          <p>Task Status: {selectedTask.taskStatus}</p>
+
           <p>Deadline: {selectedTask.deadline}</p>
           <h4>Assigned Users:</h4>
           <ul>
