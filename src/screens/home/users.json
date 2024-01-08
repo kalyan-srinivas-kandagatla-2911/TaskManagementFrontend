@@ -5,7 +5,8 @@
       "email": "john.doe@example.com",
       "teamName": "Team_One",
       "password": "password123",
-      "TasksCreatedbyMe":"Task_1"
+      "TasksCreatedbyMe":["Task_1","Task_11"],
+      "TaskStatus":["expired","ongoing"]
       
     },
     {
@@ -13,21 +14,24 @@
       "email": "jane.smith@example.com",
       "teamName": "Team_Two",
       "password": "secret@456",
-      "TasksCreatedbyMe":"Task_2"
+      "TasksCreatedbyMe":["Task_2","Task_22"],
+      "TaskStatus":["expired","expired"]
     },
     {
       "name": "Bob Johnson",
       "email": "bob.johnson@example.com",
       "teamName": "Team_One",
       "password": "securePass789",
-      "TasksCreatedbyMe":"Task_3"
+      "TasksCreatedbyMe":["Task_3","Task_33"],
+      "TaskStatus":["expired","ongoing"]
     },
     {
       "name": "Alice Williams",
       "email": "alice.williams@example.com",
       "teamName": "Team_Two",
       "password": "p@ssw0rd",
-      "TasksCreatedbyMe":"Task_4"
+      "TasksCreatedbyMe":["Task_4","Task_44"],
+      "TaskStatus":["expired","ongoing"]
     }
   ]
   

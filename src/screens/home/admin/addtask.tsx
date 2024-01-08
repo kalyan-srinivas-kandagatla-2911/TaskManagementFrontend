@@ -3,6 +3,7 @@ import users from '../users.json'; // Update the path accordingly
 
 const TaskPage = () => {
   const [taskName, setTaskName] = useState('');
+  // const[taskStatus,setTaskStatus]=useState('');
   const [assignedUsers, setAssignedUsers] = useState<{ email: string; name: string; teamName: string }[]>([]);
   const [selectedUser, setSelectedUser] = useState('');
   const [searchText, setSearchText] = useState('');
@@ -48,6 +49,7 @@ const TaskPage = () => {
       // In a real-world scenario, you would likely send this data to a backend
       // for processing and storage.
       console.log('Task Name:', taskName);
+      // console.log('Task status',taskStatus);
       console.log('Assigned Users:', assignedUsers);
       console.log('Selected Date:', selectedDate);
       alert('Task published successfully!');
