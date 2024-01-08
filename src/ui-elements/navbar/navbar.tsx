@@ -24,6 +24,9 @@ const Navigation = () => (
       <li>
         <Link to="/viewtask"> View Task</Link>
       </li>
+      <li>
+        <Link to="/viewtaskBy"> View Task By</Link>
+      </li>
     </ul>
   </nav>
 );
