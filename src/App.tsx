@@ -9,7 +9,8 @@ import Login from "./screens/home/auth/login/login";
 import Register from "./screens/home/auth/register/register";
 import AddTask from "./screens/home/admin/addtask";
 import Nav from "./ui-elements/navbar/navbar";
-import ViewTasks from "./screens/home/admin/task";
+import ViewTasks from "./screens/home/admin/tasksTo";
+import ViewTasksBy from "./screens/home/admin/tasksBy";
 
 function App() {
 
@@ -29,6 +30,8 @@ function App() {
               <Route path="/register" element={<Register/>}/>
               <Route path="/addtask" element={<AddTask/>}/>
               <Route path="/viewtask" element={<ViewTasks/>}/>
+              <Route path="/viewtaskBy" element={<ViewTasksBy/>}/>
+
             </Routes>
           </BrowserRouter>
       </div>
