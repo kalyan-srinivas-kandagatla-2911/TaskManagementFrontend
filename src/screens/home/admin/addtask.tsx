@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import users from '../users.json'; // Update the path accordingly
+import { useCreateTaskMutation } from '../../../generated/graphql';
 
 const TaskPage = () => {
-  const [taskName, setTaskName] = useState('');
+  const [createTaskMutation, { data, loading, error }] = useCreateTaskMutation()
+  const [title, setTitle] = useState('');
   // const[taskStatus,setTaskStatus]=useState('');
-  const [assignedUsers, setAssignedUsers] = useState<{ email: string; name: string; teamName: string }[]>([]);
+  const [assignedUsers, setAssignedUsers] = useState<any[]>([]);
   const [selectedUser, setSelectedUser] = useState('');
   const [searchText, setSearchText] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
@@ -44,11 +46,23 @@ const TaskPage = () => {
     setAssignedUsers(assignedUsers.filter((user) => user.email !== email));
   };
 
-  const handlePublish = () => {
-    if (taskName && assignedUsers.length > 0 && selectedDate) {
-      // In a real-world scenario, you would likely send this data to a backend
-      // for processing and storage.
-      console.log('Task Name:', taskName);
+  const handlePublish = async () => {
+    if (title && assignedUsers.length > 0 && selectedDate) {
+      try {
+        await createTaskMutation({
+          variables:{
+            data:{
+              title,
+              assignTaskToUsers: assignedUsers,
+              description: description,
+              deadline:selectedDate
+            }
+          }
+        })
+      } catch (error) {
+        console.log(error)
+      }
+      console.log('Task Name:', title);
       // console.log('Task status',taskStatus);
       console.log('Assigned Users:', assignedUsers);
       console.log('Selected Date:', selectedDate);
@@ -56,8 +70,8 @@ const TaskPage = () => {
     } else {
       alert('Please enter task name, assign at least one user, and select a date.');
     }
+    
   };
-
   return (
     <div className="container">
       <h2>Task Page (Admin)</h2>
@@ -65,8 +79,8 @@ const TaskPage = () => {
         Task Name:
         <input
           type="text"
-          value={taskName}
-          onChange={(e) => setTaskName(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </label>
       <br />
@@ -125,43 +139,3 @@ function AddTask() {
 }
 
 export default AddTask;
-
-
-// export default function AddTask(){
-//   const [title, settitle] = useState();
-//   const [description, setdescription] = useState();
-//   const [start, setstart] = useState();
-//   const [end, setend] = useState();
-//   let teamoneusers: any[] = [];
-//   for( let i = 0; i < users.length ; i ++ ){
-//     if( users[i].teamName = "Team_One") 
-//     {
-//       teamoneusers.push(users[i])
-//     }
-//   }
-//   // let teamtwousers = 
-//   console.log(teamoneusers)
-//   return(
-//     <div className="addTask">
-//       <input type="text" placeholder="title"  
-//       // onChange={HTMLInputElement} 
-//       />
-//       <input type="text" placeholder="description" />
-//       <input type="date" placeholder="start date " />
-//       <input type="date" placeholder="end date" />
-//       <label htmlFor="">Assign task to user </label>
-//       <select required title="teamoneusers" name="teamoneusers" >
-//         <optgroup label="team_one" >
-//           {teamoneusers.map((user, value) => (
-//             <option key={value} value={user.email}>{user.name}</option>
-//           ))}
-//         </optgroup>
-//         <optgroup label="team_two" >
-//           {teamoneusers.map((user, value) => (
-//             <option key={value} value={user.email}>{user.name}</option>
-//           ))}
-//         </optgroup>
-//       </select>
-//     </div>
-//   )
-// }

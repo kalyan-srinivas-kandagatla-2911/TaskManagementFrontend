@@ -9,8 +9,9 @@ type HomeProps =
  {
     
 };
-
+console.log(this)
 const Home:React.FC<HomeProps> = () => {
+    console.log(this)
     const [logOutUserMutation, { data, loading, error }] = useLogOutUserMutation();
 
     const logOut = async () => {
@@ -29,6 +30,7 @@ const Home:React.FC<HomeProps> = () => {
                     await logOutUserMutation();
                     window.location.reload()
                 }}>Logout</button>
+                
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import tasksData from '../tasks.json'; // Update the path accordingly
+import tasksData from '../task.json'; // Update the path accordingly
 
 const ViewTasks = () => {
   const [tasks, setTasks] = useState<any[]>([]);
@@ -36,7 +36,7 @@ const ViewTasks = () => {
           <p>Deadline: {selectedTask.deadline}</p>
           <h4>Assigned Users:</h4>
           <ul>
-            {selectedTask.assignedUsers.map((user: any) => (
+            {selectedTask.UsersLinked.map((user: any) => (
               <li key={user.email}>
                 {user.name} - {user.teamName} ({user.email})
               </li>
@@ -49,4 +49,3 @@ const ViewTasks = () => {
 };
 
 export default ViewTasks;
-export {}
