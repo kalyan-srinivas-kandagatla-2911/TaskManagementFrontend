@@ -7,7 +7,7 @@ import { Route, Link,Routes } from 'react-router-dom';
 // import TaskPage from './TaskPage';
 import Task from '../../screens/home/admin/addtask';
 import Login from '../../screens/home/auth/login/login';
-import Home from '../../screens/home/pages/home';
+import Home from '../../screens/home/pages/home/home';
 
 const Navigation = () => (
   <nav>

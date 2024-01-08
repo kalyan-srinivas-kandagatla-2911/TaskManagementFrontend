@@ -123,3 +123,43 @@ function AddTask() {
 }
 
 export default AddTask;
+
+
+// export default function AddTask(){
+//   const [title, settitle] = useState();
+//   const [description, setdescription] = useState();
+//   const [start, setstart] = useState();
+//   const [end, setend] = useState();
+//   let teamoneusers: any[] = [];
+//   for( let i = 0; i < users.length ; i ++ ){
+//     if( users[i].teamName = "Team_One") 
+//     {
+//       teamoneusers.push(users[i])
+//     }
+//   }
+//   // let teamtwousers = 
+//   console.log(teamoneusers)
+//   return(
+//     <div className="addTask">
+//       <input type="text" placeholder="title"  
+//       // onChange={HTMLInputElement} 
+//       />
+//       <input type="text" placeholder="description" />
+//       <input type="date" placeholder="start date " />
+//       <input type="date" placeholder="end date" />
+//       <label htmlFor="">Assign task to user </label>
+//       <select required title="teamoneusers" name="teamoneusers" >
+//         <optgroup label="team_one" >
+//           {teamoneusers.map((user, value) => (
+//             <option key={value} value={user.email}>{user.name}</option>
+//           ))}
+//         </optgroup>
+//         <optgroup label="team_two" >
+//           {teamoneusers.map((user, value) => (
+//             <option key={value} value={user.email}>{user.name}</option>
+//           ))}
+//         </optgroup>
+//       </select>
+//     </div>
+//   )
+// }
