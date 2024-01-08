@@ -21,7 +21,7 @@ const TaskManager:React.FC<TaskMangerProps> = () => {
             {tasks.map((value, index) => (
               <tr>
                   <td>
-                  {value.sno}
+                  {/* {value.sno} */}
                 </td>
                 <td>
                     {value.title}
@@ -33,14 +33,14 @@ const TaskManager:React.FC<TaskMangerProps> = () => {
                     {value.startdate}
                   </td>
                   <td>
-                    {value['end date']}
+                    {value['enddate']}
                   </td>
                   <td>
-                    {value['Task Assigned By']}
+                    {value['TaskAssignedBy']}
                   </td>
-                  <td>
-                    {value['Task Assigned to']}
-                  </td>
+                  {/* <td>
+                    {value['TaskAssignedto']}
+                  </td> */}
                 </tr>
             ))}
         </tbody>

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
-import "./App.css";
+// import "./App.css";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/reducers";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -17,7 +17,11 @@ function App() {
   console.log(device);
   return (
     <div className="App">
-      <div>
+      {/* <div className="card-track">
+  <div className="card-wrapper">
+    <div className="card">
+      <div className="card-image"></div>
+      <div> */}
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home/>}/>
@@ -28,7 +32,12 @@ function App() {
             </Routes>
           </BrowserRouter>
       </div>
-    </div>
+  //     </div>
+  //     </div>
+  //     </div>
+  //     {/* <script src="animation.js"></script> */}
+  // {/* <script src="other-script.js"></script> */}
+  //   </div>
   );
 }
 
