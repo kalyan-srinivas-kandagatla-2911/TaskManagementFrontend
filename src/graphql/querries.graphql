@@ -8,3 +8,13 @@ query getMe {
     role
   }
 }
+
+query GetTasksCreatedByMe($userId: String!) {
+  getTasksCreatedByMe(user_id: $userId) {
+    description
+    id
+    title
+    updatedAt
+    deadline
+  }
+}

@@ -76,7 +76,7 @@ export type QueryGetTasksAssignedToMeArgs = {
 
 
 export type QueryGetTasksCreatedByMeArgs = {
-  email: Scalars['String']['input'];
+  user_id: Scalars['String']['input'];
 };
 
 /** set of roles for task_management */
@@ -181,6 +181,13 @@ export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'User', username: string, team: string, email: string, id: string, offId: string, role: Role } };
+
+export type GetTasksCreatedByMeQueryVariables = Exact<{
+  userId: Scalars['String']['input'];
+}>;
+
+
+export type GetTasksCreatedByMeQuery = { __typename?: 'Query', getTasksCreatedByMe: Array<{ __typename?: 'Task', description: string, id: string, title: string, updatedAt?: any | null, deadline?: any | null }> };
 
 
 export const SignUpUserDocument = gql`
@@ -356,3 +363,47 @@ export type GetMeQueryHookResult = ReturnType<typeof useGetMeQuery>;
 export type GetMeLazyQueryHookResult = ReturnType<typeof useGetMeLazyQuery>;
 export type GetMeSuspenseQueryHookResult = ReturnType<typeof useGetMeSuspenseQuery>;
 export type GetMeQueryResult = Apollo.QueryResult<GetMeQuery, GetMeQueryVariables>;
+export const GetTasksCreatedByMeDocument = gql`
+    query GetTasksCreatedByMe($userId: String!) {
+  getTasksCreatedByMe(user_id: $userId) {
+    description
+    id
+    title
+    updatedAt
+    deadline
+  }
+}
+    `;
+
+/**
+ * __useGetTasksCreatedByMeQuery__
+ *
+ * To run a query within a React component, call `useGetTasksCreatedByMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTasksCreatedByMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTasksCreatedByMeQuery({
+ *   variables: {
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useGetTasksCreatedByMeQuery(baseOptions: Apollo.QueryHookOptions<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>(GetTasksCreatedByMeDocument, options);
+      }
+export function useGetTasksCreatedByMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>(GetTasksCreatedByMeDocument, options);
+        }
+export function useGetTasksCreatedByMeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>(GetTasksCreatedByMeDocument, options);
+        }
+export type GetTasksCreatedByMeQueryHookResult = ReturnType<typeof useGetTasksCreatedByMeQuery>;
+export type GetTasksCreatedByMeLazyQueryHookResult = ReturnType<typeof useGetTasksCreatedByMeLazyQuery>;
+export type GetTasksCreatedByMeSuspenseQueryHookResult = ReturnType<typeof useGetTasksCreatedByMeSuspenseQuery>;
+export type GetTasksCreatedByMeQueryResult = Apollo.QueryResult<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>;
