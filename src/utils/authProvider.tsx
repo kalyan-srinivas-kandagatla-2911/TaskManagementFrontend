@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { User } from "../types/user"
+import { User } from "../types/User"
 import { useGetMeQuery } from "../generated/graphql";
 
 

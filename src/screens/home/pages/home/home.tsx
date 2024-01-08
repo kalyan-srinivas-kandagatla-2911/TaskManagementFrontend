@@ -21,9 +21,9 @@ const Home:React.FC<HomeProps> = () => {
             <div className="nav">
                 <Nav />
             </div>
-            <div className="task-manager">
+            {/* <div className="task-manager">
                 <TaskManager />
-            </div>
+            </div> */}
             <div className="container">
                 <button onClick={async () =>{
                     await logOutUserMutation();
