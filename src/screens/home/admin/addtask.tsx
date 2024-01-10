@@ -60,7 +60,7 @@ const TaskPage = () => {
 
   return (
     <div className="container">
-      <h2>Task Page (Admin)</h2>
+      <h2 className="animate__animated animate__bounce">Task Page (Admin)</h2>
       <label>
         Task Name:
         <input

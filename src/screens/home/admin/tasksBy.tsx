@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import tasksData from '../tasks.json';
 
-const ViewTasksBy = () => {
+const ViewTasks = () => {
   const [tasks, setTasks] = useState<any[]>([]);
   const [selectedTask, setSelectedTask] = useState<any | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   useEffect(() => {
     setTasks(tasksData);
@@ -21,19 +20,12 @@ const ViewTasksBy = () => {
     setSelectedTask(null); // Reset selected task when status changes
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedFile(e.target.files[0]);
-    }
-  };
-
-  const handleFileSubmit = () => {
-    if (selectedTask && selectedFile) {
-      // Handle file submission logic here
-      console.log('File submitted for task:', selectedTask.title);
-      console.log('Selected File:', selectedFile);
+  const handleApprove = () => {
+    if (selectedTask && selectedTask.taskStatus === 'Submitted') {
+      // Handle approval logic here
+      console.log('Task approved:', selectedTask.title);
     } else {
-      alert('Please select a task and a file before submitting.');
+      alert('Please select a task with status "Submitted" to approve.');
     }
   };
 
@@ -43,7 +35,7 @@ const ViewTasksBy = () => {
 
   return (
     <div className="container">
-      <h2>View Tasks</h2>
+      <h2 className="animate__animated animate__bounce">View Tasks</h2>
       <div>
         <h3>Filter by Status:</h3>
         <nav>
@@ -77,7 +69,7 @@ const ViewTasksBy = () => {
                 <td>{task.TaskAssignedBy}</td>
               </tr>
               {selectedTask && selectedTask.taskId === task.taskId && (
-                <tr className="details-row">
+                <tr className="details-row animate__animated animate__flipInX">
                   <td colSpan={4}>
                     <p>Task Description: {task.description}</p>
                     <h4>Assigned Users:</h4>
@@ -88,10 +80,9 @@ const ViewTasksBy = () => {
                         </li>
                       ))}
                     </ul>
-                    <div>
-                      <input type="file" onChange={handleFileChange} />
-                      <button onClick={handleFileSubmit}>Submit</button>
-                    </div>
+                    {selectedTask.taskStatus === 'Submitted' && (
+                      <button className="animate__animated animate__fadeInDown" onClick={handleApprove}>Approve</button>
+                    )}
                   </td>
                 </tr>
               )}
@@ -103,4 +94,4 @@ const ViewTasksBy = () => {
   );
 };
 
-export default ViewTasksBy;
+export default ViewTasks;

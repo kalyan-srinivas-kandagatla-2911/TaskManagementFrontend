@@ -32,10 +32,22 @@ const ViewTasks = () => {
       // Handle file submission logic here
       console.log('File submitted for task:', selectedTask.title);
       console.log('Selected File:', selectedFile);
+      setSelectedFile(null); // Clear selected file after submission
     } else {
       alert('Please select a task and a file before submitting.');
     }
   };
+
+  const getSubmittedFiles = () => {
+    // Dummy list of submitted files
+    return [
+      { fileName: 'Document 1.pdf', submittedBy: 'User 1' },
+      { fileName: 'Report.txt', submittedBy: 'User 2' },
+      { fileName: 'Presentation.pptx', submittedBy: 'User 3' },
+    ];
+  };
+
+  const submittedFiles = selectedTask?.taskStatus === 'Submitted' ? getSubmittedFiles() : [];
 
   const filteredTasks = selectedStatus
     ? tasks.filter((task) => task.taskStatus === selectedStatus)
@@ -43,7 +55,7 @@ const ViewTasks = () => {
 
   return (
     <div className="container">
-      <h2>View Tasks</h2>
+      <h2 className="animate__animated animate__bounce">View Tasks</h2>
       <div>
         <h3>Filter by Status:</h3>
         <nav>
@@ -77,7 +89,7 @@ const ViewTasks = () => {
                 <td>{task.TaskAssignedBy}</td>
               </tr>
               {selectedTask && selectedTask.taskId === task.taskId && (
-                <tr className="details-row">
+                <tr className="details-row animate__animated animate__flipInX">
                   <td colSpan={4}>
                     <p>Task Description: {task.description}</p>
                     <h4>Assigned Users:</h4>
@@ -88,10 +100,25 @@ const ViewTasks = () => {
                         </li>
                       ))}
                     </ul>
-                    <div>
-                      <input type="file" onChange={handleFileChange} />
-                      <button onClick={handleFileSubmit}>Submit</button>
-                    </div>
+                    {selectedTask.taskStatus === 'Submitted' && (
+                      <div>
+                        <h4>Submitted Files:</h4>
+                        <ul>
+                          {submittedFiles.map((file, index) => (
+                            <li key={index}>
+                              {file.fileName} - Submitted by {file.submittedBy}
+                            </li>
+                          ))}
+                        </ul>
+                        {/* Remove the file input and submit button */}
+                      </div>
+                    )}
+                    {selectedTask.taskStatus !== 'Submitted' && (
+                      <div>
+                        <input type="file" onChange={handleFileChange} />
+                        <button onClick={handleFileSubmit}>Submit</button>
+                      </div>
+                    )}
                   </td>
                 </tr>
               )}
