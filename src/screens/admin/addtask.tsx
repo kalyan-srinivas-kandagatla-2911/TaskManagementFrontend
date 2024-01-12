@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import users from '../users.json'; // Update the path accordingly
-import { useCreateTaskMutation } from '../../../generated/graphql';
+import users from '../../../home/users.json'; // Update the path accordingly
+import { useCreateTaskMutation } from '../../generated/graphql';
 
 const TaskPage = () => {
   const [createTaskMutation, { data, loading, error }] = useCreateTaskMutation()

@@ -4,13 +4,13 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/reducers";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./screens/home/pages/home/home";
-import Login from "./screens/home/auth/login/login";
-import Register from "./screens/home/auth/register/register";
-import AddTask from "./screens/home/admin/addtask";
+import Home from "./screens/pages/home/home";
+import Login from "./screens/auth/login/login";
+import Register from "./screens/auth/register/register";
+import AddTask from "./screens/admin/addtask";
 import Nav from "./ui-elements/navbar/navbar";
-import ViewTasks from "./screens/home/admin/tasksTo";
-import ViewTasksBy from "./screens/home/admin/tasksBy";
+import ViewTasks from "./screens/admin/tasksTo";
+import ViewTasksBy from "./screens/admin/tasksBy";
 
 function App() {
 

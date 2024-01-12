@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import tasksData from '../tasks.json';
+import tasksData from '../../../home/tasks.json';
 
 const ViewTasksBy = () => {
   const [tasks, setTasks] = useState<any[]>([]);
@@ -72,8 +72,7 @@ const ViewTasksBy = () => {
                 className={selectedTask?.taskId === task.taskId ? 'selected' : ''}
               >
                 <td>{task.title}</td>
-                <td>{task.taskStatus}</td>
-                <td>{task.enddate}</td>
+                <td>{task.deadline}</td>
                 <td>{task.TaskAssignedBy}</td>
               </tr>
               {selectedTask && selectedTask.taskId === task.taskId && (
@@ -89,7 +88,7 @@ const ViewTasksBy = () => {
                       ))}
                     </ul>
                     <div>
-                      <input type="file" onChange={handleFileChange} />
+                      <input placeholder='bkcnrk' type="file" onChange={handleFileChange} />
                       <button onClick={handleFileSubmit}>Submit</button>
                     </div>
                   </td>

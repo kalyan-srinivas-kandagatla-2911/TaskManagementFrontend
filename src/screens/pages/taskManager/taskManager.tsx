@@ -1,5 +1,5 @@
 import React from 'react'
-import tasks from "../../tasks.json"
+import tasks from "../../../home/tasks.json"
 type TaskMangerProps ={}
 
 const TaskManager:React.FC<TaskMangerProps> = () => {
