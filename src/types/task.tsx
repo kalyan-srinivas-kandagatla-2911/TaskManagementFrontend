@@ -1,9 +1,11 @@
 export type Task = {
-    status: Status, 
+    Status: Status, 
     id?: string,
     title: string,
     description: string,
-    deadline: Date
+    deadline: Date,
+    files?: string[] | null,
+    sub_id?: string
 }
 
 export type Status = 'Pending' | 'Expired' | 'Approved' | 'Submitted'

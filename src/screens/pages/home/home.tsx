@@ -1,10 +1,9 @@
 import React from 'react';
 import './home.scss'
 import Login from '../../auth/login/login';
-import Nav from '../../../../ui-elements/navbar/navbar';
-import { useLogOutUserMutation } from '../../../../generated/graphql';
-import client from '../../../../apolloClient';
-import TaskManager from '../taskManager/taskManager';
+// import Nav from '../../../../ui-elements/navbar/navbar';
+import { useLogOutUserMutation } from '../../../generated/graphql';
+import client from '../../../apolloClient';
 type HomeProps =
  {
     
@@ -19,9 +18,9 @@ const Home:React.FC<HomeProps> = () => {
     }
     return (
         <div className="home">
-            <div className="nav">
+            {/* <div className="nav">
                 <Nav />
-            </div>
+            </div> */}
             {/* <div className="task-manager">
                 <TaskManager />
             </div> */}

@@ -1,8 +1,8 @@
 // src/App.js
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
-import { useSignUpUserMutation } from '../../../../generated/graphql';
+import { useSignUpUserMutation } from '../../../generated/graphql';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../../utils/authProvider';
+import { AuthContext } from '../../../utils/authProvider';
 
 function Register() {
     const [username, setUsername] = useState<string>();

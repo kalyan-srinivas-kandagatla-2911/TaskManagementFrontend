@@ -15,7 +15,7 @@ interface AuthProviderProps {
 
 export const initialUser: User = {
     username: "User",
-    id: "User ID",
+    id: "71df3d68-b6ee-4ad2-a7b6-5c930a97b1c9",
     offId: "TESTID",
     email: "user@mail.com",
     team:"Team_Two",

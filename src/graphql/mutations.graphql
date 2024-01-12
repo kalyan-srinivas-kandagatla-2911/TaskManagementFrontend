@@ -13,9 +13,3 @@ mutation SignInUser($data: SignInInput!) {
 mutation logOutUser {
   logOutUser
 }
-
-mutation CreateTask($data: createTaskInput!) {
-  createTask(data: $data) {
-    title
-  }
-}

@@ -25,28 +25,36 @@ export type Mutation = {
   createTask: Task;
   logOutUser: Scalars['Boolean']['output'];
   modifySubmissionInput: Scalars['Boolean']['output'];
+  modifyTask: Scalars['Boolean']['output'];
   signInUser: User;
   signUpUser: User;
 };
 
 
 export type MutationApproveSubmssionArgs = {
-  sub_id: Scalars['String']['input'];
+  data: ApproveSubmissionInput;
 };
 
 
 export type MutationCreateSubmissionArgs = {
   data: CreateSubmissonInput;
+  user_id: Scalars['String']['input'];
 };
 
 
 export type MutationCreateTaskArgs = {
   data: CreateTaskInput;
+  user_id: Scalars['String']['input'];
 };
 
 
 export type MutationModifySubmissionInputArgs = {
   data: ModifySubmissionInput;
+};
+
+
+export type MutationModifyTaskArgs = {
+  data: ModifyTaskInput;
 };
 
 
@@ -61,21 +69,34 @@ export type MutationSignUpUserArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  getApprovedUserSubmissions: Array<Submission>;
   getMe: User;
   getSubmissions: Array<Submission>;
+  getTaskAssignedToMe: Array<Task>;
   getTasks: Array<Task>;
-  getTasksAssignedToMe: Array<Task>;
-  getTasksCreatedByMe: Array<Task>;
+  getTasksAssignedByMe: Array<Task>;
+  getUserSubmissions: Array<Submission>;
+  getUsers: Array<User>;
   helloworld: Scalars['String']['output'];
 };
 
 
-export type QueryGetTasksAssignedToMeArgs = {
+export type QueryGetApprovedUserSubmissionsArgs = {
+  user_id: Scalars['String']['input'];
+};
+
+
+export type QueryGetTaskAssignedToMeArgs = {
+  data: UserIdInput;
+};
+
+
+export type QueryGetTasksAssignedByMeArgs = {
   email: Scalars['String']['input'];
 };
 
 
-export type QueryGetTasksCreatedByMeArgs = {
+export type QueryGetUserSubmissionsArgs = {
   user_id: Scalars['String']['input'];
 };
 
@@ -102,23 +123,26 @@ export type SignUpInput = {
 
 export type Submission = {
   __typename?: 'Submission';
+  approved: Scalars['Boolean']['output'];
   files?: Maybe<Array<Scalars['String']['output']>>;
   id: Scalars['ID']['output'];
-  submittedAt: Scalars['DateTimeISO']['output'];
+  submittedAt?: Maybe<Scalars['DateTimeISO']['output']>;
+  submittedBy: User;
   task: Task;
-  user: User;
+  updatedSubmissionAt?: Maybe<Scalars['DateTimeISO']['output']>;
 };
 
 export type Task = {
   __typename?: 'Task';
+  assignedBy: User;
+  assignedTo: Array<User>;
+  createdAt?: Maybe<Scalars['DateTimeISO']['output']>;
   deadline?: Maybe<Scalars['DateTimeISO']['output']>;
   description: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  submission?: Maybe<Submission>;
+  submission?: Maybe<Array<Submission>>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTimeISO']['output']>;
-  user: User;
-  users?: Maybe<Array<User>>;
 };
 
 export type User = {
@@ -127,11 +151,16 @@ export type User = {
   id: Scalars['ID']['output'];
   offId: Scalars['String']['output'];
   role: Role;
-  submission: Submission;
+  submission: Array<Submission>;
   taskList: Array<Task>;
   tasks: Array<Task>;
   team: Scalars['String']['output'];
   username: Scalars['String']['output'];
+};
+
+export type ApproveSubmissionInput = {
+  approved: Scalars['Boolean']['input'];
+  sub_id: Scalars['String']['input'];
 };
 
 export type CreateSubmissonInput = {
@@ -149,6 +178,18 @@ export type CreateTaskInput = {
 export type ModifySubmissionInput = {
   files: Array<Scalars['String']['input']>;
   sub_id: Scalars['String']['input'];
+};
+
+export type ModifyTaskInput = {
+  assignTaskToUsers: Array<Scalars['String']['input']>;
+  deadline?: InputMaybe<Scalars['DateTimeISO']['input']>;
+  description: Scalars['String']['input'];
+  task_id: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+};
+
+export type UserIdInput = {
+  user_id: Scalars['String']['input'];
 };
 
 export type SignUpUserMutationVariables = Exact<{
@@ -170,24 +211,17 @@ export type LogOutUserMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type LogOutUserMutation = { __typename?: 'Mutation', logOutUser: boolean };
 
-export type CreateTaskMutationVariables = Exact<{
-  data: CreateTaskInput;
-}>;
-
-
-export type CreateTaskMutation = { __typename?: 'Mutation', createTask: { __typename?: 'Task', title: string } };
-
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'User', username: string, team: string, email: string, id: string, offId: string, role: Role } };
+export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'User', email: string, id: string, offId: string, role: Role, team: string, username: string } };
 
-export type GetTasksCreatedByMeQueryVariables = Exact<{
-  userId: Scalars['String']['input'];
+export type GetTaskAssignedToMeQueryVariables = Exact<{
+  data: UserIdInput;
 }>;
 
 
-export type GetTasksCreatedByMeQuery = { __typename?: 'Query', getTasksCreatedByMe: Array<{ __typename?: 'Task', description: string, id: string, title: string, updatedAt?: any | null, deadline?: any | null }> };
+export type GetTaskAssignedToMeQuery = { __typename?: 'Query', getTaskAssignedToMe: Array<{ __typename?: 'Task', createdAt?: any | null, deadline?: any | null, description: string, id: string, title: string, updatedAt?: any | null, assignedBy: { __typename?: 'User', email: string } }> };
 
 
 export const SignUpUserDocument = gql`
@@ -286,48 +320,15 @@ export function useLogOutUserMutation(baseOptions?: Apollo.MutationHookOptions<L
 export type LogOutUserMutationHookResult = ReturnType<typeof useLogOutUserMutation>;
 export type LogOutUserMutationResult = Apollo.MutationResult<LogOutUserMutation>;
 export type LogOutUserMutationOptions = Apollo.BaseMutationOptions<LogOutUserMutation, LogOutUserMutationVariables>;
-export const CreateTaskDocument = gql`
-    mutation CreateTask($data: createTaskInput!) {
-  createTask(data: $data) {
-    title
-  }
-}
-    `;
-export type CreateTaskMutationFn = Apollo.MutationFunction<CreateTaskMutation, CreateTaskMutationVariables>;
-
-/**
- * __useCreateTaskMutation__
- *
- * To run a mutation, you first call `useCreateTaskMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateTaskMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [createTaskMutation, { data, loading, error }] = useCreateTaskMutation({
- *   variables: {
- *      data: // value for 'data'
- *   },
- * });
- */
-export function useCreateTaskMutation(baseOptions?: Apollo.MutationHookOptions<CreateTaskMutation, CreateTaskMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateTaskMutation, CreateTaskMutationVariables>(CreateTaskDocument, options);
-      }
-export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutation>;
-export type CreateTaskMutationResult = Apollo.MutationResult<CreateTaskMutation>;
-export type CreateTaskMutationOptions = Apollo.BaseMutationOptions<CreateTaskMutation, CreateTaskMutationVariables>;
 export const GetMeDocument = gql`
-    query getMe {
+    query GetMe {
   getMe {
-    username
-    team
     email
     id
     offId
     role
+    team
+    username
   }
 }
     `;
@@ -363,47 +364,51 @@ export type GetMeQueryHookResult = ReturnType<typeof useGetMeQuery>;
 export type GetMeLazyQueryHookResult = ReturnType<typeof useGetMeLazyQuery>;
 export type GetMeSuspenseQueryHookResult = ReturnType<typeof useGetMeSuspenseQuery>;
 export type GetMeQueryResult = Apollo.QueryResult<GetMeQuery, GetMeQueryVariables>;
-export const GetTasksCreatedByMeDocument = gql`
-    query GetTasksCreatedByMe($userId: String!) {
-  getTasksCreatedByMe(user_id: $userId) {
+export const GetTaskAssignedToMeDocument = gql`
+    query GetTaskAssignedToMe($data: userIdInput!) {
+  getTaskAssignedToMe(data: $data) {
+    assignedBy {
+      email
+    }
+    createdAt
+    deadline
     description
     id
     title
     updatedAt
-    deadline
   }
 }
     `;
 
 /**
- * __useGetTasksCreatedByMeQuery__
+ * __useGetTaskAssignedToMeQuery__
  *
- * To run a query within a React component, call `useGetTasksCreatedByMeQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetTasksCreatedByMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetTaskAssignedToMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTaskAssignedToMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetTasksCreatedByMeQuery({
+ * const { data, loading, error } = useGetTaskAssignedToMeQuery({
  *   variables: {
- *      userId: // value for 'userId'
+ *      data: // value for 'data'
  *   },
  * });
  */
-export function useGetTasksCreatedByMeQuery(baseOptions: Apollo.QueryHookOptions<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>) {
+export function useGetTaskAssignedToMeQuery(baseOptions: Apollo.QueryHookOptions<GetTaskAssignedToMeQuery, GetTaskAssignedToMeQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>(GetTasksCreatedByMeDocument, options);
+        return Apollo.useQuery<GetTaskAssignedToMeQuery, GetTaskAssignedToMeQueryVariables>(GetTaskAssignedToMeDocument, options);
       }
-export function useGetTasksCreatedByMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>) {
+export function useGetTaskAssignedToMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTaskAssignedToMeQuery, GetTaskAssignedToMeQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>(GetTasksCreatedByMeDocument, options);
+          return Apollo.useLazyQuery<GetTaskAssignedToMeQuery, GetTaskAssignedToMeQueryVariables>(GetTaskAssignedToMeDocument, options);
         }
-export function useGetTasksCreatedByMeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>) {
+export function useGetTaskAssignedToMeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTaskAssignedToMeQuery, GetTaskAssignedToMeQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>(GetTasksCreatedByMeDocument, options);
+          return Apollo.useSuspenseQuery<GetTaskAssignedToMeQuery, GetTaskAssignedToMeQueryVariables>(GetTaskAssignedToMeDocument, options);
         }
-export type GetTasksCreatedByMeQueryHookResult = ReturnType<typeof useGetTasksCreatedByMeQuery>;
-export type GetTasksCreatedByMeLazyQueryHookResult = ReturnType<typeof useGetTasksCreatedByMeLazyQuery>;
-export type GetTasksCreatedByMeSuspenseQueryHookResult = ReturnType<typeof useGetTasksCreatedByMeSuspenseQuery>;
-export type GetTasksCreatedByMeQueryResult = Apollo.QueryResult<GetTasksCreatedByMeQuery, GetTasksCreatedByMeQueryVariables>;
+export type GetTaskAssignedToMeQueryHookResult = ReturnType<typeof useGetTaskAssignedToMeQuery>;
+export type GetTaskAssignedToMeLazyQueryHookResult = ReturnType<typeof useGetTaskAssignedToMeLazyQuery>;
+export type GetTaskAssignedToMeSuspenseQueryHookResult = ReturnType<typeof useGetTaskAssignedToMeSuspenseQuery>;
+export type GetTaskAssignedToMeQueryResult = Apollo.QueryResult<GetTaskAssignedToMeQuery, GetTaskAssignedToMeQueryVariables>;

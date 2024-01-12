@@ -1,0 +1,93 @@
+
+
+.wrapping{
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+
+      &.heading{
+        display: block;
+      }
+      
+      .CA-text{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size:25px;
+        font-weight: 400;
+
+        .text{
+
+          font-size: xxx-large;
+          
+          &.mobile{
+              font-size: x-large;
+          }
+        }
+        
+        
+        color: #ffffff;
+        background: linear-gradient(to right, #4d4d4d 0, #dce8f0 30%, #dce8f0 70%, #4d4d4d 100%);
+        background-position: 0;
+        -webkit-background-clip: text;
+        background-clip:text;
+        -webkit-text-fill-color: transparent;
+        animation: shine 8s infinite linear;
+        animation-fill-mode: forwards;
+        -webkit-text-size-adjust: none;
+        font-family: 'Rozha One', serif;
+        text-decoration: none;
+        white-space: nowrap;
+        
+          @keyframes shine {
+            0% {
+              background-position: 0;
+            }
+            100% {
+              background-position: 1200px;
+            }
+          }
+      }
+        
+
+
+       color: white;
+
+      .search_container{
+        background: white;
+        height: 25px;
+        border-radius: 25px;
+        padding: 10px 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.8s;
+        color: #273940;
+        
+        &:hover {
+          animation: 0.15s linear 3;
+          .search_input {
+            width: 200px;
+          }
+        }
+        .search_input {
+          background: transparent;
+          border: none;
+          outline: none;
+          width: 0px;
+          font-weight: 500;
+          font-size: 16px;
+          transition: 0.8s;
+        }
+        .search_btn{
+            .search_icon{
+              height:25px;
+            }
+          }
+      }
+    }
+
+      

@@ -7,10 +7,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./screens/pages/home/home";
 import Login from "./screens/auth/login/login";
 import Register from "./screens/auth/register/register";
-import AddTask from "./screens/admin/addtask";
+// import AddTask from "./screens/admin/addtask";
 import Nav from "./ui-elements/navbar/navbar";
 import ViewTasks from "./screens/admin/tasksTo";
 import ViewTasksBy from "./screens/admin/tasksBy";
+import TaskManager from "./screens/pages/taskManager/taskManager";
 
 function App() {
 
@@ -35,9 +36,11 @@ function App() {
               <Route path="/" element={<Home/>}/>
               <Route path="/login" element={<Login/>}/>
               <Route path="/register" element={<Register/>}/>
-              <Route path="/addtask" element={<AddTask/>}/>
+              {/* <Route path="/addtask" element={<AddTask/>}/> */}
               <Route path="/viewtask" element={<ViewTasks/>}/>
               <Route path="/viewtaskBy" element={<ViewTasksBy/>}/>
+              <Route path="/taskManager" element={<TaskManager />}/>
+
 
             </Routes>
           </BrowserRouter>

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
-import { useSignInUserMutation } from '../../../../generated/graphql';
+import { useSignInUserMutation } from '../../../generated/graphql';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../../utils/authProvider';
+import { AuthContext } from '../../../utils/authProvider';
 import { IonIcon } from '@ionic/react';
 
 // import { mail-outline} from 'ionicons/icons';

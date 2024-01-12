@@ -5,7 +5,7 @@ import { Route, Link,Routes } from 'react-router-dom';
 // import LoginPage from './Login';
 // import HomePage from './HomePage';
 // import TaskPage from './TaskPage';
-import Task from '../../screens/admin/addtask';
+// import Task from '../../screens/admin/addtask';
 import Login from '../../screens/auth/login/login';
 import Home from '../../screens/pages/home/home';
 

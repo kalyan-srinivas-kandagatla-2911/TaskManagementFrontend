@@ -1,20 +1,25 @@
-query getMe {
+query GetMe {
   getMe {
-    username
-    team
     email
     id
     offId
     role
+    team
+    username
   }
 }
 
-query GetTasksCreatedByMe($userId: String!) {
-  getTasksCreatedByMe(user_id: $userId) {
+
+query GetTaskAssignedToMe($data: userIdInput!) {
+  getTaskAssignedToMe(data: $data) {
+    assignedBy {
+      email
+    }
+    createdAt
+    deadline
     description
     id
     title
     updatedAt
-    deadline
   }
 }
