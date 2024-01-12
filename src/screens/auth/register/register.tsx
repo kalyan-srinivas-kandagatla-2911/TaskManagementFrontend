@@ -56,7 +56,7 @@ function Register() {
   return (
     <div className="Register">
         <div>
-          <h2>Register</h2>
+          <h2 className="animate__animated animate__bounce">Register</h2>
           <label>
             Username:
             <input

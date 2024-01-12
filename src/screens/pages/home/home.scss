@@ -26,7 +26,7 @@ body {
   height: 100%;
 }
 
-.container .App .Link link {
+.container .App Link link {
   background-color: #a09f9f;
   padding: 20px;
   border-radius: 8px;
@@ -74,10 +74,14 @@ thead {
   background-color: #f2f2f2;
 }
 
-th, td {
+th, td{
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  // border-radius: 8px;
+}
+th,tr{
+  border-radius: 8px;
 }
 
 th {
@@ -93,7 +97,7 @@ tr:hover {
 }
 
 .details-row {
-  background-color: #fcf8e3; /* Light yellow for details row */
+  background-color: #bee6f7; /* Light yellow for details row */
 }
 
 .details-row p {
@@ -108,10 +112,16 @@ ul {
 
 li {
   margin-bottom: 5px;
+  // background-color: #001F3F;
 }
 
 
 li:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+}
+Link:hover {
   transform: scale(1.05);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -153,7 +163,7 @@ body {
 
 
 h2 {
-  color: #FFD700;
+  color: #0e0e0e;
   margin-bottom: 20px;
   padding-bottom: 20px;
 }
@@ -161,7 +171,7 @@ h2 {
 label {
   display: block;
   margin: 10px 0;
-  color: #FFD700
+  color: #0a0a09
 }
 
 input {
@@ -169,22 +179,29 @@ input {
   padding: 12px;
   margin: 8px 0;
   box-sizing: border-box;
-  border: 1px solid #FFD700;
-  border-radius: 20px;
+  border: 1px solid #070707;
+  border-radius: 8px;
+}
+option{
+  border-radius: 8px;
 }
 
 button {
-  background-color: #FFFFFF;
+  background-color: #fcfbfb;
   color: #001F3F;
   padding: 12px 24px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  position:absolute;
+  margin-left: 35%;
+  margin-top: 10px;
 }
 
 button:hover {
-  background-color: #FFFFFF; /* Darken the color on hover */
+  background-color: #dae6f9; /* Darken the color on hover */
+  box-shadow: #001F3F;
 }
 
 // button::before {
@@ -195,21 +212,30 @@ button:hover {
 //   border-radius: calc(var(--font) * 0.8);
 //   background-color: transparent;
 // }
-ul {
+ul nav{
   list-style: none;
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-li {
-  margin: 10px;
-  padding: 20px;
-  border: px solid #ccc;
-  border-radius: 8px;
-  // background-color: #fff; /* Set your desired background color */
-  text-align: center;
-}
+// li {
+//   margin: 10px;
+//   padding: 20px;
+//   border: px solid #ccc;
+//   border-radius: 8px;
+//   // background-color: #fff; /* Set your desired background color */
+  
+// }
+// li nav {text-align: center;
+//   margin: 10px;
+//   padding: 15px;
+//   border: 1px solid #ccc;
+//   border-radius: 8px;
+//   background-color: #fff;
+//   cursor: pointer;
+//   transition: transform 0.3s ease, box-shadow 0.3s ease;
+// }
 
 @keyframes borders {
   0%, 100% {
@@ -264,7 +290,9 @@ button:hover > span::after {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-
+.container .App .Link link {
+  box-shadow: 0 0 20px #001f3f;
+}
 #root {
   width: 100%;
   height: 100%;
@@ -296,3 +324,95 @@ code {
   padding: 8px;
   display: inline-block;
 }
+//
+$p: hsl(213deg 85% 97%);
+$s: hsl(233deg 36% 38%);
+* { font-family: 'Poppins' }
+@mixin screen {
+	background: $p;
+	padding: 2em;
+	display: flex;
+	flex-direction: column;
+	border-radius: 30px;
+	box-shadow: 0 0 2em hsl(231deg 62% 94%);
+}
+body {
+	user-select: none;
+	// overflow-y: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: hsl(218deg 50% 91%);
+	height: 100vh;
+}
+.screen-1 {
+	@include screen;
+	gap: 2em;
+	.logo { margin-top: -3em }
+	.email {
+		background: hsl(0deg 0% 100%);
+		box-shadow: 0 0 2em hsl(231deg 62% 94%);
+		padding: 1em;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+		border-radius: 20px;
+		color: hsl(0deg 0% 30%);
+		margin-top: -3em;
+		input {
+			outline: none;
+			border: none;
+			&::placeholder {
+				color: hsl(0deg 0% 0%);
+				font-size: 0.9em;
+			}
+		}
+		ion-icon {
+			color: hsl(0deg 0% 30%);
+			margin-bottom: -.2em;
+		}
+	}
+	.password {
+		background: hsl(0deg 0% 100%);
+		box-shadow: 0 0 2em hsl(231deg 62% 94%);
+		padding: 1em;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+		border-radius: 20px;
+		color: hsl(0deg 0% 30%);
+		input {
+			outline: none;
+			border: none;
+			&::placeholder {
+				color: hsl(0deg 0% 0%);
+				font-size: 0.9em;
+			}
+		}
+		ion-icon {
+			color: hsl(0deg 0% 30%);
+			margin-bottom: -.2em;
+		}
+		.show-hide {
+			margin-right: -5em;
+		}
+	}
+	.login {
+		padding: 1em;
+		background: hsl(233deg 36% 38%);
+		color: hsl(0 0 100);
+		border: none;
+		border-radius: 30px;
+		font-weight: 600;
+	}
+	.footer {
+		display: flex;
+		font-size: 0.7em;
+		color: hsl(0deg 0% 37%);
+		gap: 14em;
+		padding-bottom: 10em;
+		span { cursor: pointer }
+	}
+}
+
+button { cursor: pointer; }

@@ -23,6 +23,13 @@ function App() {
     <div className="card">
       <div className="card-image"></div>
       <div> */}
+      {/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.0.2/css/ionicons.min.css" integrity="sha384-pzjw8PP84r5J3pvLvlJyE6G+KEPkc4R8FQ2s8BYyNjuN8dV57D5+As/LWrRT2hy7" crossOrigin="anonymous"/> */}
+
+      <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    
+  />
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home/>}/>
@@ -34,6 +41,9 @@ function App() {
 
             </Routes>
           </BrowserRouter>
+          <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script noModule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
       </div>
   //     </div>
   //     </div>
