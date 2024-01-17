@@ -15,10 +15,10 @@ interface AuthProviderProps {
 
 export const initialUser: User = {
     username: "User",
-    id: "71df3d68-b6ee-4ad2-a7b6-5c930a97b1c9",
+    id: "USER ID",
     offId: "TESTID",
     email: "user@mail.com",
-    team:"Team_Two",
+    team:"Team_Two", 
     role: "USER"
 }
 
@@ -31,7 +31,10 @@ export const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User>(initialUser);
-    const { data, loading, refetch } = useGetMeQuery();
+    const { data, loading, error, refetch } = useGetMeQuery({
+        variables: {
+        },
+    });
 
     useEffect(() => {
         if(data) {

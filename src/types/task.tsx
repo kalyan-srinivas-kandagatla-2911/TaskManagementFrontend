@@ -1,11 +1,12 @@
+import { User } from "./user"
+
 export type Task = {
-    Status: Status, 
-    id?: string,
-    title: string,
-    description: string,
-    deadline: Date,
-    files?: string[] | null,
-    sub_id?: string
+    id: string
+    title: string
+    description: string
+    createdAt:Date | null
+    updatedAt:Date | null
+    deadline: Date | null
 }
 
 export type Status = 'Pending' | 'Expired' | 'Approved' | 'Submitted'

@@ -1,6 +1,6 @@
 // src/App.js
 import React from 'react';
-import '../../../src/screens/home/pages/home/home.scss';
+// import '../../../src/screens/home/pages/home/home.scss';
 import { Route, Link,Routes } from 'react-router-dom';
 // import LoginPage from './Login';
 // import HomePage from './HomePage';

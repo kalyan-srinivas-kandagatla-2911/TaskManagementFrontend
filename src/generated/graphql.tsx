@@ -214,7 +214,7 @@ export type LogOutUserMutation = { __typename?: 'Mutation', logOutUser: boolean 
 export type GetMeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'User', email: string, id: string, offId: string, role: Role, team: string, username: string } };
+export type GetMeQuery = { __typename?: 'Query', getMe: { __typename?: 'User', email: string, id: string, offId: string, team: string, username: string } };
 
 export type GetTaskAssignedToMeQueryVariables = Exact<{
   data: UserIdInput;
@@ -326,7 +326,6 @@ export const GetMeDocument = gql`
     email
     id
     offId
-    role
     team
     username
   }

@@ -1,14 +1,14 @@
 import React from 'react';
 import './home.scss'
 import Login from '../../auth/login/login';
-// import Nav from '../../../../ui-elements/navbar/navbar';
+import Nav from '../../../ui-elements/navbar/navbar';
 import { useLogOutUserMutation } from '../../../generated/graphql';
 import client from '../../../apolloClient';
 type HomeProps =
  {
     
 };
-console.log(this)
+// console.log(this)
 const Home:React.FC<HomeProps> = () => {
     console.log(this)
     const [logOutUserMutation, { data, loading, error }] = useLogOutUserMutation();
@@ -18,9 +18,9 @@ const Home:React.FC<HomeProps> = () => {
     }
     return (
         <div className="home">
-            {/* <div className="nav">
+            <div className="nav">
                 <Nav />
-            </div> */}
+            </div>
             {/* <div className="task-manager">
                 <TaskManager />
             </div> */}

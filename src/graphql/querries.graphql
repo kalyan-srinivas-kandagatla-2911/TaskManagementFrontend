@@ -3,12 +3,10 @@ query GetMe {
     email
     id
     offId
-    role
     team
     username
   }
 }
-
 
 query GetTaskAssignedToMe($data: userIdInput!) {
   getTaskAssignedToMe(data: $data) {

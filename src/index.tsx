@@ -8,6 +8,7 @@ import store from "./redux/store";
 import WindowSizeListner from "./hooks/windowSizeListner";
 import { ApolloProvider } from "@apollo/client";
 import client from "./apolloClient";
+import { AuthProvider } from "./utils/authProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -15,10 +16,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <ApolloProvider client={client}>
-        <WindowSizeListner/>
-        <App />
-      </ApolloProvider>
+      <WindowSizeListner/>
+        <ApolloProvider client={client}>
+            <AuthProvider>
+              <App />
+            </AuthProvider>
+        </ApolloProvider>
     </React.StrictMode>
   </Provider>
 );

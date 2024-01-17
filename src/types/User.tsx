@@ -1,9 +1,9 @@
 export type User = {
-    id: string
-    offId: string
-    username: string
-    email: string
-    team:string
+    id: string,
+    offId: string,
+    username: string,
+    email: string,
+    team:string,
     role?: Role
 }
 

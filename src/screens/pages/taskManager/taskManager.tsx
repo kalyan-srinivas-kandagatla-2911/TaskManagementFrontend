@@ -228,13 +228,14 @@
 // export default TaskManager;
 
 import React, { useContext, useEffect, useState } from 'react'
-import { Task } from '../../../types/task';
 import { AuthContext } from '../../../utils/authProvider';
 import { useGetTaskAssignedToMeQuery } from '../../../generated/graphql';
+import { Task } from '../../../types/task';
 
 const TaskManager = () => {
   const { user } = useContext(AuthContext)
   const [taskAssignedToMe, setTaskAssignedToMe] = useState<Task[]>([]);
+  const [dati, setDati] = useState<Task[]>([])
   const [submittedTasks, setSubmittedTasks] = useState();
   const { data, loading, error } = useGetTaskAssignedToMeQuery({
     variables: {
@@ -243,33 +244,68 @@ const TaskManager = () => {
         }
     },
   });
+  // useEffect(() => {
+  //   console.log(data)
+  // },[data])
+
   useEffect(() => {
-    if(data) 
-    setTaskAssignedToMe(
-      data.getTaskAssignedToMe.map(( item ) => {
-        return{
-          ...item.deadline
-        }
-      })
-    )
-  },[data])
+    if(data){
+      console.log(data)
+    }
+  }, [data]);
+
+
+  // const fetchData = async() => {
+  //   try {
+  //     let response = await fetch("http://localhost:9000/graphql")
+  //     let result = await response.json()
+  //     console.log(result)
+  //     setTaskAssignedToMe(result)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+  // useEffect(() => {
+  //   fetchData()
+  // }, [])
+  // console.log(fetchData)
+  // console.log(data)
+  // console.log(data)
+  // console.log(taskAssignedToMe)
+  // useEffect(() => {
+  //   if(data){
+  //     setTaskAssignedToMe(data)
+  //   }
+  // },[data])
+  // console.log(data?.getTaskAssignedToMe.map((item) => {
+  //   item.id
+  // }))
   return (
     <div className='taskManager' >
+      {/* {taskAssignedToMe.map((item) => return {
+        
+      })} */}
+      {/* {data?.getTaskAssignedToMe.forEach((item) => return {
+        item.assignedBy
+      })} */}
+      {/* {taskAssignedToMe} */}
+    {/*       
       <table>
        <tbody>
-          {taskAssignedToMe.map((item, value) => (
-            <>
+          {taskAssignedToMe.map((item, value) => {
+            console.log(item)
+            return <>
             <tr  >
-              {/* <td >{item.title}</td>
-              <td >{item.Status}</td> */}
+              <td >{item.title}</td>
+              <td >{item.description}</td>
               <td >{item.deadline?.toLocaleString() || undefined}</td>
-            </tr>
+            </tr> */}
               {/* <th>{item .toLocaleString() || undefined}</th> */}
               {/* <th>{item.deadline?.toLocaleString() || undefined}</th> */}
-            </>
-          ))}
+            {/* </>
+})}
        </tbody>
-      </table>
+      </table> */}
     </div>
   )
 }
