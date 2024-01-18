@@ -21,3 +21,23 @@ query GetTaskAssignedToMe($data: userIdInput!) {
     updatedAt
   }
 }
+
+query GetTasksAssignedByMe($data: userIdInput!) {
+  getTasksAssignedByMe(data: $data) {
+    id
+    title
+    description
+    deadline
+    createdAt
+    updatedAt
+    assignedTo {
+      email
+    }
+    submission {
+      files
+      id
+      approved
+      submittedAt
+    }
+  }
+}

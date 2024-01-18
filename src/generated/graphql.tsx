@@ -92,7 +92,7 @@ export type QueryGetTaskAssignedToMeArgs = {
 
 
 export type QueryGetTasksAssignedByMeArgs = {
-  email: Scalars['String']['input'];
+  data: UserIdInput;
 };
 
 
@@ -181,7 +181,7 @@ export type ModifySubmissionInput = {
 };
 
 export type ModifyTaskInput = {
-  assignTaskToUsers: Array<Scalars['String']['input']>;
+  assignTaskToUsers?: InputMaybe<Array<Scalars['String']['input']>>;
   deadline?: InputMaybe<Scalars['DateTimeISO']['input']>;
   description: Scalars['String']['input'];
   task_id: Scalars['String']['input'];
@@ -222,6 +222,13 @@ export type GetTaskAssignedToMeQueryVariables = Exact<{
 
 
 export type GetTaskAssignedToMeQuery = { __typename?: 'Query', getTaskAssignedToMe: Array<{ __typename?: 'Task', createdAt?: any | null, deadline?: any | null, description: string, id: string, title: string, updatedAt?: any | null, assignedBy: { __typename?: 'User', email: string } }> };
+
+export type GetTasksAssignedByMeQueryVariables = Exact<{
+  data: UserIdInput;
+}>;
+
+
+export type GetTasksAssignedByMeQuery = { __typename?: 'Query', getTasksAssignedByMe: Array<{ __typename?: 'Task', id: string, title: string, description: string, deadline?: any | null, createdAt?: any | null, updatedAt?: any | null, assignedTo: Array<{ __typename?: 'User', email: string }>, submission?: Array<{ __typename?: 'Submission', files?: Array<string> | null, id: string, approved: boolean, submittedAt?: any | null }> | null }> };
 
 
 export const SignUpUserDocument = gql`
@@ -411,3 +418,57 @@ export type GetTaskAssignedToMeQueryHookResult = ReturnType<typeof useGetTaskAss
 export type GetTaskAssignedToMeLazyQueryHookResult = ReturnType<typeof useGetTaskAssignedToMeLazyQuery>;
 export type GetTaskAssignedToMeSuspenseQueryHookResult = ReturnType<typeof useGetTaskAssignedToMeSuspenseQuery>;
 export type GetTaskAssignedToMeQueryResult = Apollo.QueryResult<GetTaskAssignedToMeQuery, GetTaskAssignedToMeQueryVariables>;
+export const GetTasksAssignedByMeDocument = gql`
+    query GetTasksAssignedByMe($data: userIdInput!) {
+  getTasksAssignedByMe(data: $data) {
+    id
+    title
+    description
+    deadline
+    createdAt
+    updatedAt
+    assignedTo {
+      email
+    }
+    submission {
+      files
+      id
+      approved
+      submittedAt
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetTasksAssignedByMeQuery__
+ *
+ * To run a query within a React component, call `useGetTasksAssignedByMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTasksAssignedByMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetTasksAssignedByMeQuery({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useGetTasksAssignedByMeQuery(baseOptions: Apollo.QueryHookOptions<GetTasksAssignedByMeQuery, GetTasksAssignedByMeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetTasksAssignedByMeQuery, GetTasksAssignedByMeQueryVariables>(GetTasksAssignedByMeDocument, options);
+      }
+export function useGetTasksAssignedByMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTasksAssignedByMeQuery, GetTasksAssignedByMeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetTasksAssignedByMeQuery, GetTasksAssignedByMeQueryVariables>(GetTasksAssignedByMeDocument, options);
+        }
+export function useGetTasksAssignedByMeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetTasksAssignedByMeQuery, GetTasksAssignedByMeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<GetTasksAssignedByMeQuery, GetTasksAssignedByMeQueryVariables>(GetTasksAssignedByMeDocument, options);
+        }
+export type GetTasksAssignedByMeQueryHookResult = ReturnType<typeof useGetTasksAssignedByMeQuery>;
+export type GetTasksAssignedByMeLazyQueryHookResult = ReturnType<typeof useGetTasksAssignedByMeLazyQuery>;
+export type GetTasksAssignedByMeSuspenseQueryHookResult = ReturnType<typeof useGetTasksAssignedByMeSuspenseQuery>;
+export type GetTasksAssignedByMeQueryResult = Apollo.QueryResult<GetTasksAssignedByMeQuery, GetTasksAssignedByMeQueryVariables>;

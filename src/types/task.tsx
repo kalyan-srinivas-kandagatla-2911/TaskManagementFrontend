@@ -7,6 +7,7 @@ export type Task = {
     createdAt:Date | null
     updatedAt:Date | null
     deadline: Date | null
+    
 }
 
 export type Status = 'Pending' | 'Expired' | 'Approved' | 'Submitted'

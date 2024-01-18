@@ -1,24 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import tasksData from "../../tasks.json";
+import { useGetTasksAssignedByMeQuery } from '../../generated/graphql';
+import { AuthContext } from '../../utils/authProvider';
 
 const ViewTasks = () => {
-  const [tasks, setTasks] = useState<any[]>([]);
+  const { user } = useContext(AuthContext)
+  const [tasksAssignedByMe, setTasksAssignedByMe] = useState<any[]>([]);
+  const [pendingTasks, setPendingTasks] = useState<any[]>([])
+  const [submittedTasks, setSubmittedTasks] = useState<any[]>([])
   const [selectedTask, setSelectedTask] = useState<any | null>(null);
   const [selectedStatus, setSelectedStatus] = useState<string | null>(null);
-
+ const { data, loading, error } = useGetTasksAssignedByMeQuery({
+    variables: {
+       data: {
+        user_id:user.id
+       }
+    },
+  });
   useEffect(() => {
-    setTasks(tasksData);
-  }, []);
+    if(data){
+      setTasksAssignedByMe(data.getTasksAssignedByMe);
+    }
+  }, [data]);
+  console.log(tasksAssignedByMe)
 
-  const handleTaskSelect = (taskId: string) => {
-    const task = tasks.find((t) => t.taskId === taskId);
-    setSelectedTask(task || null);
-  };
+  // const handleTaskSelect = (tasksAssignedByMe.filter(task => task.id ): any) => {
+  //   const task = tasks.find((t) => t.taskId === taskId);
+  //   setSelectedTask(task || null);
+  // };
 
   const handleStatusSelect = (status: string) => {
     setSelectedStatus(status);
-    setSelectedTask(null); // Reset selected task when status changes
+    if(selectedStatus === "Pending"){
+      setPendingTasks(tasksAssignedByMe.filter((task) => task.submission == true))
+    }
   };
+  console.log(pendingTasks)
 
   const handleApprove = () => {
     if (selectedTask && selectedTask.taskStatus === 'Submitted') {
@@ -29,9 +46,9 @@ const ViewTasks = () => {
     }
   };
 
-  const filteredTasks = selectedStatus
-    ? tasks.filter((task) => task.taskStatus === selectedStatus)
-    : tasks;
+  // const filteredTasks = selectedStatus
+  //   ? tasks.filter((task) => task.taskStatus === selectedStatus)
+  //   : tasks;
 
   return (
     <div className="container">
@@ -47,13 +64,15 @@ const ViewTasks = () => {
           </ul>
         </nav>
       </div>
-      <table>
+
+      {/* <table>
         <thead>
           <tr>
             <th>Title</th>
             <th>Status</th>
             <th>Deadline</th>
-            <th>Admin Name</th>
+            <th>CreatedAt</th>
+            <th>updatedAt</th>
           </tr>
         </thead>
         <tbody>
@@ -88,7 +107,7 @@ const ViewTasks = () => {
             </React.Fragment>
           ))}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 };

@@ -29,13 +29,13 @@
   //   },
   // });
 
-//   const [allTasks, setAllTasks] = useState<Task[]>([]);
-//   const [tasksAssignedToMe, setTasksAssignedToMe] = useState<Task[]>([]);
+//   const [allTasks, setAllTasks] = useState<any[]>([]);
+//   const [tasksAssignedToMe, setTasksAssignedToMe] = useState<any[]>([]);
 
-//   const [pendingTasks, setPendingTasks] = useState<Task[]>([]);
-//   const [expiredTasks, setExpiredTasks] = useState<Task[]>([]);
-//   const [submittedTasks, setSubmittedTasks] = useState<Task[]>([]);
-//   const [approvedTasks, setApprovedTasks] = useState<Task[]>([]);
+//   const [pendingTasks, setPendingTasks] = useState<any[]>([]);
+//   const [expiredTasks, setExpiredTasks] = useState<any[]>([]);
+//   const [submittedTasks, setSubmittedTasks] = useState<any[]>([]);
+//   const [approvedTasks, setApprovedTasks] = useState<any[]>([]);
 
 //   // useEffect(() => {
 //   //   if (data)
@@ -128,7 +128,7 @@
 //   //   }
 //   // }, [allTasks, userTasks]);
 
-//   const [tasks, setTasks] = useState<Task[]>(pendingTasks);
+//   const [tasks, setTasks] = useState<any[]>(pendingTasks);
 //   const [activeStatus, setActiveStatus] = useState<Status>("Pending");
 
 //   const { device } = useSelector((state: RootState) => state.windowSize);
@@ -230,12 +230,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../../utils/authProvider';
 import { useGetTaskAssignedToMeQuery } from '../../../generated/graphql';
-import { Task } from '../../../types/task';
 
 const TaskManager = () => {
   const { user } = useContext(AuthContext)
-  const [taskAssignedToMe, setTaskAssignedToMe] = useState<Task[]>([]);
-  const [dati, setDati] = useState<Task[]>([])
+  const [taskAssignedToMe, setTaskAssignedToMe] = useState<any[]>([]);
   const [submittedTasks, setSubmittedTasks] = useState();
   const { data, loading, error } = useGetTaskAssignedToMeQuery({
     variables: {
@@ -244,67 +242,57 @@ const TaskManager = () => {
         }
     },
   });
-  // useEffect(() => {
-  //   console.log(data)
-  // },[data])
 
   useEffect(() => {
     if(data){
       console.log(data)
+      setTaskAssignedToMe(data.getTaskAssignedToMe)
     }
   }, [data]);
 
-
-  // const fetchData = async() => {
-  //   try {
-  //     let response = await fetch("http://localhost:9000/graphql")
-  //     let result = await response.json()
-  //     console.log(result)
-  //     setTaskAssignedToMe(result)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-  // useEffect(() => {
-  //   fetchData()
-  // }, [])
-  // console.log(fetchData)
-  // console.log(data)
-  // console.log(data)
-  // console.log(taskAssignedToMe)
-  // useEffect(() => {
-  //   if(data){
-  //     setTaskAssignedToMe(data)
-  //   }
-  // },[data])
-  // console.log(data?.getTaskAssignedToMe.map((item) => {
-  //   item.id
-  // }))
+console.log(taskAssignedToMe)
   return (
     <div className='taskManager' >
-      {/* {taskAssignedToMe.map((item) => return {
-        
-      })} */}
-      {/* {data?.getTaskAssignedToMe.forEach((item) => return {
-        item.assignedBy
-      })} */}
-      {/* {taskAssignedToMe} */}
-    {/*       
       <table>
-       <tbody>
-          {taskAssignedToMe.map((item, value) => {
-            console.log(item)
-            return <>
-            <tr  >
-              <td >{item.title}</td>
-              <td >{item.description}</td>
-              <td >{item.deadline?.toLocaleString() || undefined}</td>
-            </tr> */}
-              {/* <th>{item .toLocaleString() || undefined}</th> */}
-              {/* <th>{item.deadline?.toLocaleString() || undefined}</th> */}
-            {/* </>
-})}
-       </tbody>
+        <tbody>
+          {
+            taskAssignedToMe.map((task, value) => (
+              <tr key={value} >
+                <td>{task.title}</td>
+                <td>{task.description}</td>
+                <td>{task.assignedBy.email}</td>
+                <td>{task.createdAt}</td>
+                <td>{task.updatedAt}</td>
+                <td>{task.deadline}</td>
+                <td>hakuna</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      {/* <table className="w3-table-all w3-hoverable">
+        <thead>
+          <tr className="w3-light-grey">
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Points</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>Jill</td>
+          <td>Smith</td>
+          <td>50</td>
+        </tr>
+        <tr>
+          <td>Eve</td>
+          <td>Jackson</td>
+          <td>94</td>
+        </tr>
+        <tr>
+          <td>Adam</td>
+          <td>Johnson</td>
+          <td>67</td>
+        </tr>
       </table> */}
     </div>
   )
